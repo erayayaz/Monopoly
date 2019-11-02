@@ -1,4 +1,4 @@
-package Player_die;
+package com.company;
 
 public class Player {
 
