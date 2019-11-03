@@ -2,21 +2,20 @@ package com.company.board;
 
 public class TaxSquare extends Square {
 
-    private int tax;
+    private int taxAmount;
 
-    public TaxSquare(String name, int index, int tax) {
+    public TaxSquare(String name, int index, int taxAmount) {
         super(name, index);
-        this.tax = tax;
+        this.taxAmount = taxAmount;
     }
 
-    public int getTax() {
-        return tax;
+    public int getTaxtAmount() {
+        return taxAmount;
     }
 
-    public void setTax(int tax) {
-        this.tax = tax;
+    public void setTaxtAmount(int taxAmount) {
+        this.taxAmount = taxAmount;
     }
-
 
     @Override
     public String toString() {
