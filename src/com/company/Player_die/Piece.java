@@ -1,4 +1,7 @@
-package com.company;
+package com.company.Player_die;
+
+import com.company.board.Square;
+
 
 public class Piece {
     Shape shape;
