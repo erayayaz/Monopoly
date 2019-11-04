@@ -1,11 +1,13 @@
 package com.company.board;
 
+import com.company.Player_die.Piece;
+
 import java.util.ArrayList;
 
 public class Board {
 
     private ArrayList<Square> squaresOnBoard;
-
+    private ArrayList<Piece> pieces;
     public Board() {
 
         this.squaresOnBoard = new ArrayList<>();
@@ -25,8 +27,13 @@ public class Board {
         return board.getSquaresOnBoard().get(index);
     }
 
+    public ArrayList<Piece> getPieces() {
+        return pieces;
+    }
 
-
+    public void setPieces(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
+    }
 
     public Board initializeBoard() {
 
