@@ -18,7 +18,7 @@ public class Monopoly {
     int numberOfTaxSquares;
     public static ArrayList<Player> players = new ArrayList<>();
     int startMoney;
-    Board board;
+    Board board = new Board();
     Scanner scan = new Scanner(System.in);
     private static ArrayList<String> pieces = new ArrayList<>(Arrays.asList("dog", "hat", "thimble", "boot", "whellbarrow", "cat", "car", "battleship"));
     public Monopoly(){
@@ -98,7 +98,7 @@ public class Monopoly {
         System.out.println("Please enter the tax rate");
         this.tax = scan.nextInt();
         assignPiece();
-
+        this.board = board.initializeBoard(numberOfTaxSquares, tax, goSquareMoney);
         test();
     }
 
