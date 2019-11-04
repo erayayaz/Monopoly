@@ -1,3 +1,5 @@
+package com.company;
+import com.company.board.*;
 import java.util.ArrayList;
 
 public class Monopoly {
@@ -9,7 +11,7 @@ public class Monopoly {
     static boolean gameFinished = false;
     static int tourNumber = 0;
     int numberOfTaxSquares;
-
+    Board board;
 
     public Monopoly(){
 
@@ -73,7 +75,14 @@ public class Monopoly {
 
     public void play(){
         //initializePlayers
-        //initializeBoard
+
+
+        Board boardInit = new Board();
+        this.board = boardInit.initializeBoard(numberOfTaxSquares, tax, goSquareMoney);
+
+
+
+
     }
 
     public void gameFinished(){

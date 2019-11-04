@@ -6,10 +6,10 @@ public class Board {
 
     private ArrayList<Square> squaresOnBoard;
 
+
     public Board() {
 
         this.squaresOnBoard = new ArrayList<>();
-
     }
 
     public ArrayList<Square> getSquaresOnBoard() {
@@ -28,13 +28,33 @@ public class Board {
 
 
 
-    public Board initializeBoard() {
+    public Board initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
 
         Board board = new Board();
-        Square goSquare = new GoSquare("goSquare", 0, 200);
+        Square goSquare = new GoSquare("goSquare", 0, goSquareMoney);
         board.getSquaresOnBoard().add(goSquare);
 
-        
+        int randomIndexNumber = 0;
+        Square jail = new JailSquare("Jail", 19);
+        board.getSquaresOnBoard().add(jail.getIndex(), jail);
+
+        Square gotojail =  new ArrestedSquare("Arrest", 29);
+        board.getSquaresOnBoard().add(gotojail.getIndex(),gotojail);
+
+
+        for (int i = 0; i < numberOfTaxSquare;) {
+
+               randomIndexNumber = (int) ((Math.random() * 38) + 1);
+
+            if( board.getSquaresOnBoard().get(randomIndexNumber) ==  null ){
+                Square taxSquare = new TaxSquare("Tax", randomIndexNumber, taxAmount);
+                i++;
+            }
+        }
+
+
+
+
 
 
 
