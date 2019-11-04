@@ -1,45 +1,32 @@
 package com.company.Player_die;
 
-import com.company.board.Board;
 import com.company.board.Square;
 
 
 public class Piece {
+    Shape shape;
     Square square;
     int location;
-    String name;
 
     public Piece(){
         //default object
     }
 
-    public Piece(String name){
-        this.name = name;
+    public Piece(Square square, Shape shape){
+        this.shape = shape;
+        this.square = square;
         location = 0;
     }
-
+    public Shape getShape(){
+        return this.shape;
+    }
     public Square getSquare(){
         return this.square;
     }
 
     public void moveTo(int dice_Value){
         location += dice_Value;
-      //  this.square = Board.getSquareObject(location);
+        this.square = Board.getSquare(location);
     }
 
-    public int getLocation() {
-        return location;
-    }
-
-    public void setLocation(int location) {
-        this.location = location;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
 }

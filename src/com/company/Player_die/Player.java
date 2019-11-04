@@ -1,7 +1,5 @@
 package com.company.Player_die;
 
-import com.company.board.Square;
-
 public class Player {
 
     //Property of our Player
@@ -10,8 +8,8 @@ public class Player {
     private int doubleCounter;
     private boolean inJail=false;
     private boolean isBankrupt=false;
-    private Piece piece;
-    private Square currentSquare;
+    //private Piece piece;
+    //private Square currentSquare;
 
     public Player(String name, int money) {
         this.name = name;
@@ -60,11 +58,4 @@ public class Player {
         doubleCounter = 0;
     }
 
-    public Piece getPiece() {
-        return piece;
-    }
-
-    public void setPiece(Piece piece) {
-        this.piece = piece;
-    }
 }
