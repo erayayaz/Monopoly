@@ -1,7 +1,5 @@
 package com.company.Player_die;
-
 import com.company.board.Square;
-
 
 public class Piece {
     Shape shape;
@@ -17,6 +15,7 @@ public class Piece {
         this.square = square;
         location = 0;
     }
+
     public Shape getShape(){
         return this.shape;
     }

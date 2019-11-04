@@ -35,7 +35,6 @@ public class Player {
     }
     public void increaseMoney(double money){
         this.money+=money;
-
     }
     public void decreaseMoney(double money){
         this.money-=money;
