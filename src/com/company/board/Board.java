@@ -2,8 +2,10 @@ package com.company.board;
 
 import java.util.ArrayList;
 
+
 public class Board {
 
+    private final int NUMBER_OF_SQUARES = 39;
     private ArrayList<Square> squaresOnBoard;
 
 
@@ -53,10 +55,11 @@ public class Board {
         }
 
 
-
-
-
-
+        for (int i = 0; i < NUMBER_OF_SQUARES - 1  ; i++) {
+           if ( board.getSquaresOnBoard().get(i) == null ){
+               Square regularSquare =  new RegularSquare("Regular Square", i);
+           }
+        }
 
         return board;
 
