@@ -1,15 +1,18 @@
 package com.company.board;
 
+import com.company.Player_die.Piece;
+
 import java.util.ArrayList;
 
 public class Board {
 
+    private final int NUMBER_OF_SQUARES = 39;
     private ArrayList<Square> squaresOnBoard;
-
-
+    private ArrayList<Piece> pieces;
     public Board() {
 
         this.squaresOnBoard = new ArrayList<>();
+
     }
 
     public ArrayList<Square> getSquaresOnBoard() {
@@ -25,8 +28,13 @@ public class Board {
         return board.getSquaresOnBoard().get(index);
     }
 
+    public ArrayList<Piece> getPieces() {
+        return pieces;
+    }
 
-
+    public void setPieces(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
+    }
 
     public Board initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
 
@@ -44,7 +52,7 @@ public class Board {
 
         for (int i = 0; i < numberOfTaxSquare;) {
 
-               randomIndexNumber = (int) ((Math.random() * 38) + 1);
+            randomIndexNumber = (int) ((Math.random() * 38) + 1);
 
             if( board.getSquaresOnBoard().get(randomIndexNumber) ==  null ){
                 Square taxSquare = new TaxSquare("Tax", randomIndexNumber, taxAmount);
@@ -53,10 +61,11 @@ public class Board {
         }
 
 
-
-
-
-
+        for (int i = 0; i < NUMBER_OF_SQUARES - 1  ; i++) {
+            if ( board.getSquaresOnBoard().get(i) == null ){
+                Square regularSquare =  new RegularSquare("Regular Square", i);
+            }
+        }
 
         return board;
 
