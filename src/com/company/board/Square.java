@@ -1,5 +1,7 @@
 package com.company.board;
 
+import com.company.Player_die.Player;
+
 public abstract class Square {
 
     private String name;
@@ -34,7 +36,7 @@ public abstract class Square {
         return index;
     }
 
-
+    public abstract void action(Player player);
 
 
 

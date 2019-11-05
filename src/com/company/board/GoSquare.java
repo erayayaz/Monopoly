@@ -1,5 +1,7 @@
 package com.company.board;
 
+import com.company.Player_die.Player;
+
 public class GoSquare extends Square{
 
     private int goSquareMoney;
@@ -40,6 +42,11 @@ public class GoSquare extends Square{
     @Override
     public int getIndex() {
         return super.getIndex();
+    }
+
+    @Override
+    public void action(Player player) {
+        player.increaseMoney(this.goSquareMoney);
     }
 
 

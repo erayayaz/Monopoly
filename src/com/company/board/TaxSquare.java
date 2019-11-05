@@ -1,5 +1,7 @@
 package com.company.board;
 
+import com.company.Player_die.Player;
+
 public class TaxSquare extends Square {
 
     private int taxAmount;
@@ -42,7 +44,10 @@ public class TaxSquare extends Square {
         return super.getIndex();
     }
 
-
+    @Override
+    public void action(Player player) {
+        player.decreaseMoney(this.taxAmount);
+    }
 
 
 }

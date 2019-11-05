@@ -1,6 +1,10 @@
 package com.company.board;
 
+import com.company.Player_die.Player;
+
 public class ArrestedSquare extends Square{
+
+
 
     public ArrestedSquare(String name, int index) {
         super(name, index);
@@ -31,7 +35,10 @@ public class ArrestedSquare extends Square{
         return super.getIndex();
     }
 
-
+    @Override
+    public void action(Player player) {
+        player.getPiece().setLocation();
+    }
 
 
 }
