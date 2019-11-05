@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class Board {
 
-    private final int NUMBER_OF_SQUARES = 39;
+    private final int NUMBER_OF_SQUARES = 40;
     private ArrayList<Square> squaresOnBoard;
     private ArrayList<Piece> pieces;
     public Board() {
@@ -39,15 +39,18 @@ public class Board {
     public Board initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
 
         Board board = new Board();
+        for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
+            board.getSquaresOnBoard().add(null);
+        }
         Square goSquare = new GoSquare("goSquare", 0, goSquareMoney);
-        board.getSquaresOnBoard().add(goSquare);
+        board.getSquaresOnBoard().set(goSquare.getIndex(),goSquare);
 
         int randomIndexNumber = 0;
         Square jail = new JailSquare("Jail", 19);
-        board.getSquaresOnBoard().add(jail.getIndex(), jail);
+        board.getSquaresOnBoard().set(jail.getIndex(), jail);
 
         Square gotojail =  new ArrestedSquare("Arrest", 29);
-        board.getSquaresOnBoard().add(gotojail.getIndex(),gotojail);
+        board.getSquaresOnBoard().set(gotojail.getIndex(),gotojail);
 
 
         for (int i = 0; i < numberOfTaxSquare;) {
@@ -56,14 +59,16 @@ public class Board {
 
             if( board.getSquaresOnBoard().get(randomIndexNumber) ==  null ){
                 Square taxSquare = new TaxSquare("Tax", randomIndexNumber, taxAmount);
+                board.getSquaresOnBoard().set(randomIndexNumber,taxSquare);
                 i++;
             }
         }
 
 
-        for (int i = 0; i < NUMBER_OF_SQUARES - 1  ; i++) {
+        for (int i = 0; i < NUMBER_OF_SQUARES   ; i++) {
             if ( board.getSquaresOnBoard().get(i) == null ){
                 Square regularSquare =  new RegularSquare("Regular Square", i);
+                board.getSquaresOnBoard().set(i,regularSquare);
             }
         }
 
