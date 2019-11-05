@@ -1,5 +1,7 @@
 package com.company.board;
 
+import com.company.Player_die.Player;
+
 public class RegularSquare extends Square {
 
 
@@ -30,5 +32,10 @@ public class RegularSquare extends Square {
     @Override
     public int getIndex() {
         return super.getIndex();
+    }
+
+    @Override
+    public void action(Player player) {
+        System.out.println("Regular square");
     }
 }
