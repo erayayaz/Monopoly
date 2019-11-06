@@ -5,11 +5,8 @@ import com.company.Player_die.Player;
 import com.company.board.*;
 
 import java.io.*;
+import java.util.*;
 
-import java.util.Random;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Scanner;
 
 public class Monopoly {
 
@@ -22,10 +19,10 @@ public class Monopoly {
     private boolean gameFinished = false;
 
     public static ArrayList<String> names;
-
     public static ArrayList<Player> players;
 
-    Board board = new Board();
+    Board board;
+
     Scanner scan = new Scanner(System.in);
     private static ArrayList<String> pieces = new ArrayList<>(Arrays.asList("dog", "hat", "thimble", "boot", "whellbarrow", "cat", "car", "battleship"));
 
@@ -46,7 +43,7 @@ public class Monopoly {
         readText();
         initializePlayers(getNumberOfPlayers(), getStartMoney());
         assignPiece();
-        this.board = board.initializeBoard(getNumberOfTaxSquares(), getTax(), getGoSquareMoney());
+        board = new Board(getNumberOfTaxSquares(), getTax(), getGoSquareMoney());
         determineTurns(players);
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
@@ -58,7 +55,7 @@ public class Monopoly {
         int index = 0;
         boolean gameSitutation = false;
         int playersInGame = numberOfPlayers;
-       int  numberOfBanktruptPlayer = 0;
+        int  numberOfBanktruptPlayer = 0;
         while(!checkBankrupts(players)){
             dice1.setFaceValue();
             dice2.setFaceValue();
@@ -270,7 +267,5 @@ public class Monopoly {
     public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
     }
-
-
 
 }
