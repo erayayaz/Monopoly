@@ -11,20 +11,12 @@ public class Board {
     private ArrayList<Piece> pieces;
 
     public Board(int numberOfTaxSquares, int taxAmount, int goSquareMoney) {
-        initializeBoard(numberOfTaxSquares,taxAmount,goSquareMoney);
         this.squaresOnBoard = new ArrayList<>();
+        initializeBoard(numberOfTaxSquares,taxAmount,goSquareMoney);
     }
 
     public ArrayList<Square> getSquaresOnBoard() {
         return squaresOnBoard;
-    }
-
-    public void setSquaresOnBoard(ArrayList<Square> squaresOnBoard) {
-        this.squaresOnBoard = squaresOnBoard;
-    }
-
-    public Square getSquareObject(Board board, int index) {
-        return board.getSquaresOnBoard().get(index);
     }
 
     public ArrayList<Piece> getPieces() {
@@ -37,7 +29,7 @@ public class Board {
 
     public void initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
         for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
-            getSquaresOnBoard().add(null);
+            this.getSquaresOnBoard().add(null);
         }
 
         Square goSquare = new GoSquare("goSquare", 0, goSquareMoney);

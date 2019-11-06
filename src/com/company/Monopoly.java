@@ -7,7 +7,6 @@ import com.company.board.*;
 import java.io.*;
 import java.util.*;
 
-
 public class Monopoly {
 
     private int numberOfPlayers;
@@ -63,7 +62,7 @@ public class Monopoly {
 
 
             int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-            players.get(index).getPiece().moveTo(totalDice, board);
+            players.get(index).getPiece().moveTo(totalDice);
 
             if(players.get(index).getPiece().getSquare() instanceof ArrestedSquare){
                 board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
@@ -80,22 +79,16 @@ public class Monopoly {
             }
 
             printIteration(players.get(index),totalDice);
-            } else if ( players.get(index).isInJail() == true) {
+            }/* else if ( players.get(index).isInJail() == true) {
                 players.get(index).increaseJailCounter(players.get(index));
                 players.get(index).afCıktı(players.get(index));
-            }else if(numberOfBanktruptPlayer == numberOfPlayers - 1){
+            }*/else if(numberOfBanktruptPlayer == numberOfPlayers - 1){
 
                 System.out.println("Game Over");
                 System.exit(1);
 
             }
-
-
-
             }
-
-
-
 
 
             index++;
@@ -182,10 +175,9 @@ public class Monopoly {
         for (int i = 0; i < numberOfPlayers; i++) {
             String temp;
             Random rand = new Random();
-            int random;
-            random = rand.nextInt(a);
+            int random = rand.nextInt(a);
             temp = pieces.get(random);
-            a = a - 1;
+            a--;
             Piece piece = new Piece(temp);
             players.get(i).setPiece(piece);
             pieces.remove(random);
