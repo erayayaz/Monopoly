@@ -2,6 +2,9 @@ package com.company;
 import com.company.Player_die.Piece;
 import com.company.Player_die.Player;
 import com.company.board.Board;
+
+import java.io.*;
+
 import java.util.Random;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -9,20 +12,25 @@ import java.util.Scanner;
 
 public class Monopoly {
 
-    int numberOfPlayers;
+    private int numberOfPlayers;
+    private int goSquareMoney;
+    private int tax;
+    private int startMoney;
+    private int tourNumber;
+    private int numberOfTaxSquares;
+    private boolean gameFinished = false;
+
     public static ArrayList<String> names;
-    int goSquareMoney;
-    int tax;
-    static boolean gameFinished = false;
-    static int tourNumber = 0;
-    int numberOfTaxSquares;
-    public static ArrayList<Player> players = new ArrayList<>();
-    int startMoney;
+
+    public static ArrayList<Player> players;
+
     Board board = new Board();
     Scanner scan = new Scanner(System.in);
     private static ArrayList<String> pieces = new ArrayList<>(Arrays.asList("dog", "hat", "thimble", "boot", "whellbarrow", "cat", "car", "battleship"));
-    public Monopoly(){
 
+    public Monopoly(){
+        names = new ArrayList<String>();
+        players = new ArrayList<Player>();
     }
 
     public Monopoly(ArrayList<String> names, int goSquareMoney, int tax, int numberOfTaxSquares){
@@ -33,83 +41,51 @@ public class Monopoly {
         this.numberOfTaxSquares = numberOfTaxSquares;
     }
 
-    public ArrayList<String> getNames() {
-        return names;
-    }
-
-    public void setNames(ArrayList<String> names) {
-        this.names = names;
-    }
-
-    public int getGoSquareMoney() {
-        return goSquareMoney;
-    }
-
-    public void setGoSquareMoney(int goSquareMoney) {
-        this.goSquareMoney = goSquareMoney;
-    }
-
-    public int getTax() {
-        return tax;
-    }
-
-    public void setTax(int tax) {
-        this.tax = tax;
-    }
-
-    public int getNumberOfPlayers() {
-        return numberOfPlayers;
-    }
-
-    public void setNumberOfPlayers(int numberOfPlayers) {
-        this.numberOfPlayers = numberOfPlayers;
-    }
-
-    public static int getTourNumber() {
-        return tourNumber;
-    }
-
-    public static void setTourNumber(int tourNumber) {
-        Monopoly.tourNumber = tourNumber;
-    }
-
-    public int getNumberOfTaxSquares() {
-        return numberOfTaxSquares;
-    }
-
-    public void setNumberOfTaxSquares(int numberOfTaxSquares) {
-        this.numberOfTaxSquares = numberOfTaxSquares;
-    }
-
     public void play(){
-        System.out.println("Welcome to Monopoly Game.\n Please enter number of players");
-        this.numberOfPlayers = scan.nextInt();
-        while(numberOfPlayers < 2 || numberOfPlayers > 8){
-            System.out.println("Number of players should be between 2 and 8");
-            this.numberOfPlayers = scan.nextInt();
-        }
-        System.out.println("Please enter the start money");
-        this.startMoney = scan.nextInt();
-        initializePlayers(numberOfPlayers, startMoney);
-        System.out.println("Please enter the money will be given to players when lands Go Square");
-        this.goSquareMoney = scan.nextInt();
-        System.out.println("Please enter the number of tax squares");
-        this.numberOfTaxSquares = scan.nextInt();
-        System.out.println("Please enter the tax rate");
-        this.tax = scan.nextInt();
+        readText();
+        initializePlayers(getNumberOfPlayers(), getStartMoney());
+        System.out.println(players.get(0).getName());
         assignPiece();
-        this.board = board.initializeBoard(numberOfTaxSquares, tax, goSquareMoney);
+        this.board = board.initializeBoard(getNumberOfTaxSquares(), getTax(), getGoSquareMoney());
         test();
     }
 
-    public void initializePlayers(int numberOfPlayers, int startMoney){
-        String name = "";
-        for (int i = 0; i < numberOfPlayers; i++) {
-            System.out.println("Plase enter the name of player");
-            name = scan.next();
-            Player player = new Player(name, startMoney);
-            players.add(i, player);
+
+    public void readText(){
+        try {
+            File file = new File("test.txt");
+            BufferedReader br = new BufferedReader(new FileReader(file));
+            String st;
+
+            while ((st = br.readLine()) != null) {
+                String[] lines = st.split(" ");
+                if (lines[0].equals("numberOfPlayers"))
+                    setNumberOfPlayers(Integer.parseInt(lines[1]));
+                else if (lines[0].equals("startMoney"))
+                    setStartMoney(Integer.parseInt(lines[1]));
+                else if (lines[0].equals("goSquareMoney"))
+                    setGoSquareMoney(Integer.parseInt(lines[1]));
+                else if (lines[0].equals("numberOfTaxSquares"))
+                    setNumberOfTaxSquares(Integer.parseInt(lines[1]));
+                else if (lines[0].equals("taxRate"))
+                    setTax(Integer.parseInt(lines[1]));
+                else {
+                    for (String element : lines) {
+                        names.add(element);
+                    }
+                }
+            }
         }
+        catch(IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void initializePlayers(int numberOfPlayers, int startMoney){
+        names.forEach(element -> {
+            Player player = new Player(element, getStartMoney());
+            players.add(player);
+        });
     }
 
     public boolean gameFinished(){
@@ -147,5 +123,71 @@ public class Monopoly {
             System.out.println();
         }
     }
+
+    public ArrayList<String> getNames() {
+        return names;
+    }
+
+    public void setNames(ArrayList<String> names) {
+        this.names = names;
+    }
+
+    public int getGoSquareMoney() {
+        return goSquareMoney;
+    }
+
+    public void setGoSquareMoney(int goSquareMoney) {
+        this.goSquareMoney = goSquareMoney;
+    }
+
+    public int getTax() {
+        return tax;
+    }
+
+    public void setTax(int tax) {
+        this.tax = tax;
+    }
+
+    public int getNumberOfPlayers() {
+        return numberOfPlayers;
+    }
+
+    public void setNumberOfPlayers(int numberOfPlayers) {
+        this.numberOfPlayers = numberOfPlayers;
+    }
+
+    public int getTourNumber() {
+        return tourNumber;
+    }
+
+    public void setTourNumber(int tourNumber) {
+        this.tourNumber = tourNumber;
+    }
+
+    public int getNumberOfTaxSquares() {
+        return numberOfTaxSquares;
+    }
+
+    public void setNumberOfTaxSquares(int numberOfTaxSquares) {
+        this.numberOfTaxSquares = numberOfTaxSquares;
+    }
+
+    public int getStartMoney() {
+        return startMoney;
+    }
+
+    public void setStartMoney(int startMoney) {
+        this.startMoney = startMoney;
+    }
+
+    public boolean isGameFinished() {
+        return gameFinished;
+    }
+
+    public void setGameFinished(boolean gameFinished) {
+        this.gameFinished = gameFinished;
+    }
+
+
 
 }
