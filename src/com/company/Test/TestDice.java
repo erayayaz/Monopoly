@@ -1,4 +1,4 @@
-package com.company.Player_die;
+
 
 import com.company.Player_die.Dice;
 import com.company.Player_die.Player;
@@ -9,7 +9,7 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;
 
-public class DiceTest {
+public class TestDice {
     Dice die1,die2;
     Player gamer;
 
