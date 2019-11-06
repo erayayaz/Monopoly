@@ -66,4 +66,9 @@ public class Player {
     public void setPiece(Piece piece) {
         this.piece = piece;
     }
+    public int rollDice(Dice die1,Dice die2){
+        die1.setFaceValue();
+        die2.setFaceValue();
+        return die1.getFaceValue()+ die2.getFaceValue();
+    }
 }
