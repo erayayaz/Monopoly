@@ -1,0 +1,6 @@
+numberOfPlayers 3
+startMoney 200
+goSquareMoney 100
+numberOfTaxSquares 100
+taxRate 10
+suleyman baris eser

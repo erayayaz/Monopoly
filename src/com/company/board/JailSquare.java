@@ -1,5 +1,7 @@
 package com.company.board;
 
+import com.company.Player_die.Player;
+
 public class JailSquare extends Square {
 
     public JailSquare(String name, int index) {
@@ -29,6 +31,11 @@ public class JailSquare extends Square {
     @Override
     public int getIndex() {
         return super.getIndex();
+    }
+
+    @Override
+    public void action(Player player) {
+
     }
 
 
