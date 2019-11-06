@@ -62,7 +62,7 @@ public class Monopoly {
 
 
             int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-            players.get(index).getPiece().moveTo(totalDice);
+            players.get(index).getPiece().moveTo(totalDice, board);
 
             if(players.get(index).getPiece().getSquare() instanceof ArrestedSquare){
                 board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));

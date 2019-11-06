@@ -19,6 +19,14 @@ public class Board {
         return squaresOnBoard;
     }
 
+    public void setSquaresOnBoard(ArrayList<Square> squaresOnBoard) {
+        this.squaresOnBoard = squaresOnBoard;
+    }
+
+    public Square getSquareObject(Board board, int index) {
+        return board.getSquaresOnBoard().get(index);
+    }
+
     public ArrayList<Piece> getPieces() {
         return pieces;
     }

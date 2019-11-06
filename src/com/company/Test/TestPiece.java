@@ -1,3 +1,5 @@
+package com.company.Test;
+
 import com.company.Player_die.Piece;
 import com.company.Player_die.Player;
 import com.company.board.Square;
@@ -22,11 +24,7 @@ public class TestPiece {
     @After
     public void tearDown() throws Exception {
     }
-    @Test
-    public void testMoveTo(){
-        piece.moveTo(2);
-        assertEquals(2,piece.getLocation());
-    }
+
     @Test
     public void testGetLocation(){
         assertEquals(0,piece.getLocation());

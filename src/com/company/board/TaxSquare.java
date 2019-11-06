@@ -47,6 +47,10 @@ public class TaxSquare extends Square {
     @Override
     public void action(Player player) {
         player.decreaseMoney(this.taxAmount);
+
+        if ( player.getMoney() <= 0)
+            player.setBankrupt(true);
+
     }
 
 

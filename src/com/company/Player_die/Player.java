@@ -10,7 +10,7 @@ public class Player {
     private double money;
     private int doubleCounter;
     private boolean inJail = false;
-    private boolean isBankrupt = false;
+    private boolean isBankrupt;
     private int turn;
     private Piece piece;
     private Square currentSquare;
@@ -19,10 +19,11 @@ public class Player {
     public Player(String name, int money) {
         this.name = name;
         this.money = money;
+        this.isBankrupt = false;
     }
 
     public void setBankrupt(boolean bankrupt) {
-        isBankrupt = bankrupt;
+        this.isBankrupt = bankrupt;
     }
 
     public boolean isBankrupt() {
@@ -73,11 +74,11 @@ public class Player {
 
     public void decreaseMoney(double money) {
         this.money -= money;
-        if (money <= 0)
-            this.isBankrupt = true;
+
     }
 
     public boolean isInJail() {
+
         return inJail;
     }
 
@@ -130,5 +131,12 @@ public class Player {
         die1.setFaceValue();
         die2.setFaceValue();
         return die1.getFaceValue() + die2.getFaceValue();
+    }
+
+    public void afCıktı(Player player){
+        if(player.jailCounter == 3){
+            player.setInJail(false);
+        }
+
     }
 }

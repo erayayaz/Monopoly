@@ -22,9 +22,12 @@ public class Piece {
         return this.square;
     }
 
-    public void moveTo(int dice_Value){
+    public void moveTo(int dice_Value, Board board){
         location += dice_Value;
-        //  this.square = Board.getSquareObject(location);
+        if(location >= 40){
+            location -= 40;
+        }
+          this.square = board.getSquareObject(board, location);
     }
 
     public int getLocation() {
