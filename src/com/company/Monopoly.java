@@ -5,6 +5,7 @@ import com.company.Player_die.Player;
 import com.company.board.*;
 
 import java.io.*;
+import java.lang.reflect.Array;
 import java.util.*;
 
 public class Monopoly {
@@ -50,54 +51,107 @@ public class Monopoly {
 
     }
 
-    public void simulateGame(ArrayList<Player> players, Board board, Dice dice1, Dice dice2){
+    public void simulateGame(ArrayList<Player> players, Board board, Dice dice1, Dice dice2) {
         int index = 0;
         boolean gameSitutation = false;
         int playersInGame = numberOfPlayers;
-        int  numberOfBanktruptPlayer = 0;
-        while(!checkBankrupts(players)){
-            dice1.setFaceValue();
-            dice2.setFaceValue();
-            if(players.get(index).isBankrupt() == false && players.get(index).isInJail() == false){
+        int numberOfBanktruptPlayer = 0;
+        while (!checkBankrupts(players)) {
+            for (int i = 0; i < playersInGame; i++) {
+                dice1.setFaceValue();
+                dice2.setFaceValue();
+                int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
+                int currentPlayer = findPlayer(players,i);
+                if (players.get(currentPlayer).isBankrupt() == false) {
 
+                    players.get(currentPlayer).getPiece().moveTo(totalDice, board);
 
-            int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-            players.get(index).getPiece().moveTo(totalDice, board);
+                    if (players.get(currentPlayer).getPiece().getSquare() instanceof TaxSquare) {
+                        board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
+                    } else if (players.get(currentPlayer).getPiece().getSquare() instanceof GoSquare) {
+                        board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
+                    }
 
-            if(players.get(index).getPiece().getSquare() instanceof ArrestedSquare){
-                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
-            }
-            else if(players.get(index).getPiece().getSquare() instanceof TaxSquare){
-                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
-            }
-            else if(players.get(index).getPiece().getSquare() instanceof GoSquare){
-                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
-            }
+                    if (players.get(currentPlayer).isBankrupt() == true) {
+                        System.out.println("1");
+                        numberOfBanktruptPlayer += 1;
+                        changeTurn(players.get(currentPlayer), players);
+                        playersInGame--;
+                    }
 
-            if(players.get(index).isBankrupt() == true){
-                numberOfBanktruptPlayer += 1;
-            }
+                 //   printIteration(players.get(currentPlayer),totalDice);
 
-            printIteration(players.get(index),totalDice);
-            }/* else if ( players.get(index).isInJail() == true) {
-                players.get(index).increaseJailCounter(players.get(index));
-                players.get(index).afCıktı(players.get(index));
-            }*/else if(numberOfBanktruptPlayer == numberOfPlayers - 1){
-
-                System.out.println("Game Over");
-                System.exit(1);
-
-            }
-            }
-
-
-            index++;
-
-            if(index == numberOfPlayers){
-                index = 0;
+                }
+                if (numberOfBanktruptPlayer == numberOfPlayers - 1) {
+                    System.out.println("Game Over");
+                    System.exit(1);
+                }
+                printIteration(players.get(currentPlayer),totalDice);
             }
         }
+    }
+//        while(!checkBankrupts(players)){
+//            dice1.setFaceValue();
+//            dice2.setFaceValue();
+//            if(players.get(index).isBankrupt() == false /*&& players.get(index).isInJail() == false*/){
+//
+//
+//            int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
+//            players.get(index).getPiece().moveTo(totalDice, board);
+//
+//            /*if(players.get(index).getPiece().getSquare() instanceof ArrestedSquare){
+//                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
+//            }*/
+//            if(players.get(index).getPiece().getSquare() instanceof TaxSquare){
+//                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
+//            }
+//            else if(players.get(index).getPiece().getSquare() instanceof GoSquare){
+//                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
+//            }
+//
+//            if(players.get(index).isBankrupt() == true){
+//                System.out.println("1");
+//                numberOfBanktruptPlayer += 1;
+//                changeTurn(players.get(index), players);
+//                playersInGame--;
+//            }
+//
+//           // printIteration(players.get(index),totalDice);
+//            }/* else if ( players.get(index).isInJail() == true) {
+//                players.get(index).increaseJailCounter(players.get(index));
+//                players.get(index).afCıktı(players.get(index));
+//            }*/else if(numberOfBanktruptPlayer == numberOfPlayers - 1){
+//
+//                System.out.println("Game Over");
+//                System.exit(1);
+//
+//            }
+//            }
 
+
+//            index++;
+//
+// //if(index == playersInGame){
+            //    index = 0;
+            //}
+
+    public int findPlayer(ArrayList<Player> players, int i){
+        for (int j = 0; j < numberOfPlayers ; j++) {
+            if (players.get(j).getTurn() == i) {
+                return j;
+            }
+        }
+        return 0;
+    }
+    public void changeTurn(Player bankrupted, ArrayList<Player> players){
+        int a = bankrupted.getTurn();
+        for (int i = 0; i < numberOfPlayers; i++) {
+            if(players.get(i).getTurn() > a){
+                players.get(i).setTurn(players.get(i).getTurn() - 1);
+            }
+        }
+        bankrupted.setTurn(numberOfPlayers + 1);
+    }
 
 
     public void printIteration(Player player, int moveNumber){
