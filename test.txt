@@ -1,6 +1,6 @@
-numberOfPlayers 3
+numberOfPlayers 4
 startMoney 200
 goSquareMoney 100
-numberOfTaxSquares 100
+numberOfTaxSquares 20
 taxRate 10
-suleyman baris eser
+suleyman rahim berk eray

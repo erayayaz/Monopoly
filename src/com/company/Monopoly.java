@@ -44,7 +44,6 @@ public class Monopoly {
     public void play(){
         readText();
         initializePlayers(getNumberOfPlayers(), getStartMoney());
-        System.out.println(players.get(0).getName());
         assignPiece();
         this.board = board.initializeBoard(getNumberOfTaxSquares(), getTax(), getGoSquareMoney());
         test();
@@ -113,15 +112,14 @@ public class Monopoly {
             a = a - 1;
             Piece piece = new Piece(temp);
             players.get(i).setPiece(piece);
-            pieces.set(random, null);
+            pieces.remove(random);
         }
     }
 
     public void test(){
-        for (int i = 0; i < numberOfPlayers; i++) {
-            System.out.printf("%s %s", players.get(i).getName(), players.get(i).getPiece().getName());
-            System.out.println();
-        }
+        players.forEach(element -> {
+            System.out.println(element.getName() + " " + element.getPiece().getName());
+        });
     }
 
     public ArrayList<String> getNames() {
