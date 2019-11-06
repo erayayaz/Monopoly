@@ -1,7 +1,8 @@
 package com.company;
+import com.company.Player_die.Dice;
 import com.company.Player_die.Piece;
 import com.company.Player_die.Player;
-import com.company.board.Board;
+import com.company.board.*;
 
 import java.io.*;
 
@@ -16,7 +17,7 @@ public class Monopoly {
     private int goSquareMoney;
     private int tax;
     private int startMoney;
-    private int tourNumber;
+    private int cycleNumber;
     private int numberOfTaxSquares;
     private boolean gameFinished = false;
 
@@ -46,9 +47,75 @@ public class Monopoly {
         initializePlayers(getNumberOfPlayers(), getStartMoney());
         assignPiece();
         this.board = board.initializeBoard(getNumberOfTaxSquares(), getTax(), getGoSquareMoney());
-        test();
+        determineTurns(players);
+        Dice dice1 = new Dice();
+        Dice dice2 = new Dice();
+        simulateGame(players,board,dice1,dice2);
+
     }
 
+    public void simulateGame(ArrayList<Player> players, Board board, Dice dice1, Dice dice2){
+        int index = 0;
+        boolean gameSitutation = false;
+        int playersInGame = numberOfPlayers;
+       int  numberOfBanktruptPlayer = 0;
+        while(!checkBankrupts(players)){
+            dice1.setFaceValue();
+            dice2.setFaceValue();
+            if(players.get(index).isBankrupt() == false && players.get(index).isInJail() == false){
+
+
+            int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
+            players.get(index).getPiece().moveTo(totalDice, board);
+
+            if(players.get(index).getPiece().getSquare() instanceof ArrestedSquare){
+                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
+            }
+            else if(players.get(index).getPiece().getSquare() instanceof TaxSquare){
+                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
+            }
+            else if(players.get(index).getPiece().getSquare() instanceof GoSquare){
+                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
+            }
+
+            if(players.get(index).isBankrupt() == true){
+                numberOfBanktruptPlayer += 1;
+            }
+
+            printIteration(players.get(index),totalDice);
+            } else if ( players.get(index).isInJail() == true) {
+                players.get(index).increaseJailCounter(players.get(index));
+                players.get(index).afCıktı(players.get(index));
+            }else if(numberOfBanktruptPlayer == numberOfPlayers - 1){
+
+                System.out.println("Game Over");
+                System.exit(1);
+
+            }
+
+
+
+            }
+
+
+
+
+
+            index++;
+
+            if(index == numberOfPlayers){
+                index = 0;
+            }
+        }
+
+
+
+    public void printIteration(Player player, int moveNumber){
+        System.out.println(player.isBankrupt());
+        System.out.println(player.getName() + " rools " + moveNumber);
+        System.out.println(player.getName() + " moved to " + player.getPiece().getLocation());
+        System.out.println(player.getMoney());
+    }
 
     public void readText(){
         try {
@@ -97,9 +164,21 @@ public class Monopoly {
         }
     }
 
-    public void printIteration(){
-
+    public boolean checkBankrupts(ArrayList<Player> players){
+        int numberOfBankruptedPlayers = 0;
+        for (int i = 0; i < numberOfPlayers; i++) {
+            if(players.get(i).isBankrupt() == true){
+                numberOfBankruptedPlayers++;
+            }
+        }
+        if(numberOfPlayers - numberOfBankruptedPlayers == 1){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
+
 
     public void assignPiece(){
         int a = 8;
@@ -113,6 +192,12 @@ public class Monopoly {
             Piece piece = new Piece(temp);
             players.get(i).setPiece(piece);
             pieces.remove(random);
+        }
+    }
+
+    public void determineTurns(ArrayList<Player> players){
+        for (int i = 0; i < numberOfPlayers; i++) {
+            players.get(i).setTurn(i);
         }
     }
 
@@ -154,12 +239,12 @@ public class Monopoly {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public int getTourNumber() {
-        return tourNumber;
+    public int getCycleNumberNumber() {
+        return cycleNumber;
     }
 
-    public void setTourNumber(int tourNumber) {
-        this.tourNumber = tourNumber;
+    public void setCycleNumber(int cycleNumber) {
+        this.cycleNumber = cycleNumber;
     }
 
     public int getNumberOfTaxSquares() {
