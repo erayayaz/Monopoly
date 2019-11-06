@@ -2,8 +2,7 @@ package com.company.board;
 
 import com.company.Player_die.Player;
 
-public class ArrestedSquare extends Square{
-
+public class ArrestedSquare extends Square {
 
 
     public ArrestedSquare(String name, int index) {
@@ -37,8 +36,10 @@ public class ArrestedSquare extends Square{
 
     @Override
     public void action(Player player) {
-        player.getPiece().setLocation();
+        player.setInJail(true);
+        player.getPiece().setLocation(29);
     }
 
 
 }
+

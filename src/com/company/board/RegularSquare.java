@@ -36,6 +36,5 @@ public class RegularSquare extends Square {
 
     @Override
     public void action(Player player) {
-        System.out.println("Regular square");
     }
 }
