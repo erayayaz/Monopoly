@@ -47,24 +47,34 @@ public class Monopoly {
         Dice dice1 = new Dice();
         Dice dice2 = new Dice();
         simulateGame(players,board,dice1,dice2);
-
     }
 
     public void simulateGame(ArrayList<Player> players, Board board, Dice dice1, Dice dice2) {
         int playersInGame = numberOfPlayers;
         int numberOfBanktruptPlayer = 0;
+        setCycleNumber(0);
+
         while (!checkBankrupts(players)) {
+            printCycle();
+            increaseCycleNumber();
+
             for (int i = 0; i < playersInGame; i++) {
                 dice1.setFaceValue();
                 dice2.setFaceValue();
                 int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
                 int currentPlayer = findPlayer(players,i);
-                if (players.get(currentPlayer).isBankrupt() == false && players.get(currentPlayer).isInJail() == false ) {
 
+                if( !players.get(currentPlayer).isBankrupt() && players.get(currentPlayer).isInJail() ){
+                    // System.out.println("test");
+                    players.get(currentPlayer).increaseJailCounter(players.get(currentPlayer));
+                    players.get(currentPlayer).setFree(players.get(currentPlayer));
+                }
+
+                else if ( !players.get(currentPlayer).isBankrupt() && !players.get(currentPlayer).isInJail() ) {
                     players.get(currentPlayer).getPiece().moveTo(totalDice, board);
 
                     if(players.get(currentPlayer).getPiece().getSquare() instanceof ArrestedSquare){
-                    board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
+                        board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
                     } else if (players.get(currentPlayer).getPiece().getSquare() instanceof TaxSquare) {
                         board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
                     } else if (players.get(currentPlayer).getPiece().getSquare() instanceof GoSquare) {
@@ -76,14 +86,8 @@ public class Monopoly {
                         changeTurn(players.get(currentPlayer), players);
                         playersInGame--;
                     }
-
-
                 }
-                else if(players.get(currentPlayer).isBankrupt() == false && players.get(currentPlayer).isInJail() == true){
-                   // System.out.println("test");
-                    players.get(currentPlayer).increaseJailCounter(players.get(currentPlayer));
-                    players.get(currentPlayer).setFree(players.get(currentPlayer));
-                }
+
                 if (numberOfBanktruptPlayer == numberOfPlayers - 1) {
                     System.out.println("Game Over");
                     System.out.println("Winner is" + players.get(currentPlayer).getName());
@@ -113,6 +117,19 @@ public class Monopoly {
         bankrupted.setTurn(numberOfPlayers + 1);
     }
 
+    private void printCycle() {
+        if(getCycleNumber() == 0){
+            System.out.println("Game is started");
+            System.out.println("The players : ");
+            players.forEach(element -> {
+                System.out.println(element.getName() + " choose the " + element.getPiece().getName());
+            });
+        }
+        System.out.println("\n------------CYCLE " + getCycleNumber() + " ----------------------\n");
+    }
+    public void increaseCycleNumber(){
+        setCycleNumber(getCycleNumber() + 1);
+    }
 
     public void printIteration(Player player, int moveNumber){
         if((player.isInJail() == true)){
@@ -210,12 +227,6 @@ public class Monopoly {
         }
     }
 
-    public void test(){
-        players.forEach(element -> {
-            System.out.println(element.getName() + " " + element.getPiece().getName());
-        });
-    }
-
     public ArrayList<String> getNames() {
         return names;
     }
@@ -248,7 +259,7 @@ public class Monopoly {
         this.numberOfPlayers = numberOfPlayers;
     }
 
-    public int getCycleNumberNumber() {
+    public int getCycleNumber() {
         return cycleNumber;
     }
 
