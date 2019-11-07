@@ -90,7 +90,7 @@ public class Monopoly {
 
                 if (numberOfBanktruptPlayer == numberOfPlayers - 1) {
                     System.out.println("Game Over");
-                    System.out.println("Winner is" + players.get(currentPlayer).getName());
+                    printWinner(players);
                     System.exit(1);
                 }
                 printIteration(players.get(currentPlayer),totalDice);
@@ -142,6 +142,16 @@ public class Monopoly {
             System.out.println(player.getName() + " has " + player.getMoney());
         }
         System.out.println("---------------------------");
+    }
+
+    public void printWinner(ArrayList<Player> players){
+        String name = "";
+        for (int i = 0; i < numberOfPlayers; i++) {
+            if(players.get(i).isBankrupt() == false){
+                name = players.get(i).getName();
+            }
+        }
+        System.out.println("Winner is " + name);
     }
 
     public void readText(){
