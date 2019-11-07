@@ -5,7 +5,6 @@ import com.company.Player_die.Player;
 import com.company.board.*;
 
 import java.io.*;
-import java.lang.reflect.Array;
 import java.util.*;
 
 public class Monopoly {
@@ -52,8 +51,6 @@ public class Monopoly {
     }
 
     public void simulateGame(ArrayList<Player> players, Board board, Dice dice1, Dice dice2) {
-        int index = 0;
-        boolean gameSitutation = false;
         int playersInGame = numberOfPlayers;
         int numberOfBanktruptPlayer = 0;
         while (!checkBankrupts(players)) {
@@ -62,78 +59,41 @@ public class Monopoly {
                 dice2.setFaceValue();
                 int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
                 int currentPlayer = findPlayer(players,i);
-                if (players.get(currentPlayer).isBankrupt() == false) {
+                if (players.get(currentPlayer).isBankrupt() == false && players.get(currentPlayer).isInJail() == false ) {
 
                     players.get(currentPlayer).getPiece().moveTo(totalDice, board);
 
-                    if (players.get(currentPlayer).getPiece().getSquare() instanceof TaxSquare) {
+                    if(players.get(currentPlayer).getPiece().getSquare() instanceof ArrestedSquare){
+                    board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
+                    } else if (players.get(currentPlayer).getPiece().getSquare() instanceof TaxSquare) {
                         board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
                     } else if (players.get(currentPlayer).getPiece().getSquare() instanceof GoSquare) {
                         board.getSquaresOnBoard().get(players.get(currentPlayer).getPiece().getLocation()).action(players.get(currentPlayer));
                     }
 
                     if (players.get(currentPlayer).isBankrupt() == true) {
-                        System.out.println("1");
                         numberOfBanktruptPlayer += 1;
                         changeTurn(players.get(currentPlayer), players);
                         playersInGame--;
                     }
 
-                 //   printIteration(players.get(currentPlayer),totalDice);
 
+                }
+                else if(players.get(currentPlayer).isBankrupt() == false && players.get(currentPlayer).isInJail() == true){
+                   // System.out.println("test");
+                    players.get(currentPlayer).increaseJailCounter(players.get(currentPlayer));
+                    players.get(currentPlayer).setFree(players.get(currentPlayer));
                 }
                 if (numberOfBanktruptPlayer == numberOfPlayers - 1) {
                     System.out.println("Game Over");
+                    System.out.println("Winner is" + players.get(currentPlayer).getName());
                     System.exit(1);
                 }
                 printIteration(players.get(currentPlayer),totalDice);
             }
         }
     }
-//        while(!checkBankrupts(players)){
-//            dice1.setFaceValue();
-//            dice2.setFaceValue();
-//            if(players.get(index).isBankrupt() == false /*&& players.get(index).isInJail() == false*/){
-//
-//
-//            int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-//            players.get(index).getPiece().moveTo(totalDice, board);
-//
-//            /*if(players.get(index).getPiece().getSquare() instanceof ArrestedSquare){
-//                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
-//            }*/
-//            if(players.get(index).getPiece().getSquare() instanceof TaxSquare){
-//                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
-//            }
-//            else if(players.get(index).getPiece().getSquare() instanceof GoSquare){
-//                board.getSquaresOnBoard().get(players.get(index).getPiece().getLocation()).action(players.get(index));
-//            }
-//
-//            if(players.get(index).isBankrupt() == true){
-//                System.out.println("1");
-//                numberOfBanktruptPlayer += 1;
-//                changeTurn(players.get(index), players);
-//                playersInGame--;
-//            }
-//
-//           // printIteration(players.get(index),totalDice);
-//            }/* else if ( players.get(index).isInJail() == true) {
-//                players.get(index).increaseJailCounter(players.get(index));
-//                players.get(index).afCıktı(players.get(index));
-//            }*/else if(numberOfBanktruptPlayer == numberOfPlayers - 1){
-//
-//                System.out.println("Game Over");
-//                System.exit(1);
-//
-//            }
-//            }
 
-
-//            index++;
-//
-// //if(index == playersInGame){
-            //    index = 0;
-            //}
 
     public int findPlayer(ArrayList<Player> players, int i){
         for (int j = 0; j < numberOfPlayers ; j++) {
@@ -155,10 +115,16 @@ public class Monopoly {
 
 
     public void printIteration(Player player, int moveNumber){
-        System.out.println(player.isBankrupt());
-        System.out.println(player.getName() + " rools " + moveNumber);
-        System.out.println(player.getName() + " moved to " + player.getPiece().getLocation());
-        System.out.println(player.getMoney());
+        if((player.isInJail() == true)){
+            System.out.println(player.getName() + " is now in jail.");
+            System.out.println("After " + (2 - player.getJailCounter()) + " turns player will be freed");
+        }
+        else{
+            System.out.println(player.getName() + " rools " + moveNumber);
+            System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
+            System.out.println(player.getName() + " has " + player.getMoney());
+        }
+        System.out.println("---------------------------");
     }
 
     public void readText(){

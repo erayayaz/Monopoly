@@ -133,9 +133,10 @@ public class Player {
         return die1.getFaceValue() + die2.getFaceValue();
     }
 
-    public void afCıktı(Player player){
-        if(player.jailCounter == 3){
+    public void setFree(Player player){
+        if(player.jailCounter == 2){
             player.setInJail(false);
+            player.resetJailCounter(player);
         }
 
     }
