@@ -10,7 +10,7 @@ import static org.junit.Assert.*;
 
 public class TestPlayer {
 
-    Piece piece = new Piece();
+    Piece piece = new Piece("Eray");
     Player gamer = new Player("Eray",500);
     Square square = new Square("Eray",0) {
         @Override
