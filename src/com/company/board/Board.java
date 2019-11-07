@@ -14,27 +14,6 @@ public class Board {
         this.squaresOnBoard = new ArrayList<>();
         initializeBoard(numberOfTaxSquares,taxAmount,goSquareMoney);
     }
-
-    public ArrayList<Square> getSquaresOnBoard() {
-        return squaresOnBoard;
-    }
-
-    public void setSquaresOnBoard(ArrayList<Square> squaresOnBoard) {
-        this.squaresOnBoard = squaresOnBoard;
-    }
-
-    public Square getSquareObject(Board board, int index) {
-        return board.getSquaresOnBoard().get(index);
-    }
-
-    public ArrayList<Piece> getPieces() {
-        return pieces;
-    }
-
-    public void setPieces(ArrayList<Piece> pieces) {
-        this.pieces = pieces;
-    }
-
     public void initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
         for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
             this.getSquaresOnBoard().add(null);
@@ -66,5 +45,25 @@ public class Board {
                 getSquaresOnBoard().set(i,regularSquare);
             }
         }
+    }
+
+    public ArrayList<Square> getSquaresOnBoard() {
+        return squaresOnBoard;
+    }
+
+    public void setSquaresOnBoard(ArrayList<Square> squaresOnBoard) {
+        this.squaresOnBoard = squaresOnBoard;
+    }
+
+    public Square getSquareObject(Board board, int index) {
+        return board.getSquaresOnBoard().get(index);
+    }
+
+    public ArrayList<Piece> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
     }
 }

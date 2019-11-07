@@ -22,6 +22,37 @@ public class Player {
         this.isBankrupt = false;
     }
 
+    public void increaseJailCounter() {
+        setJailCounter(getJailCounter() + 1);
+    }
+
+    public void resetJailCounter() {
+        setJailCounter(0);
+    }
+
+    public void increaseMoney(double money) {
+        this.money += money;
+    }
+
+    public void decreaseMoney(double money) {
+        this.money -= money;
+
+    }
+
+    public int rollDice(Dice die1, Dice die2) {
+        die1.setFaceValue();
+        die2.setFaceValue();
+        return die1.getFaceValue() + die2.getFaceValue();
+    }
+
+    public void setFree(){
+        if(getJailCounter() == 2){
+            setInJail(false);
+            resetJailCounter();
+        }
+
+    }
+
     public void setBankrupt(boolean bankrupt) {
         this.isBankrupt = bankrupt;
     }
@@ -54,28 +85,6 @@ public class Player {
         this.turn = turn;
     }
 
-
-    public void increaseJailCounter(Player player) {
-
-        player.jailCounter += 1;
-
-    }
-
-    public void resetJailCounter(Player player) {
-
-        player.jailCounter = 0;
-
-    }
-
-    public void increaseMoney(double money) {
-        this.money += money;
-
-    }
-
-    public void decreaseMoney(double money) {
-        this.money -= money;
-
-    }
 
     public boolean isInJail() {
 
@@ -127,17 +136,4 @@ public class Player {
         this.piece = piece;
     }
 
-    public int rollDice(Dice die1, Dice die2) {
-        die1.setFaceValue();
-        die2.setFaceValue();
-        return die1.getFaceValue() + die2.getFaceValue();
-    }
-
-    public void setFree(Player player){
-        if(player.jailCounter == 2){
-            player.setInJail(false);
-            player.resetJailCounter(player);
-        }
-
-    }
 }

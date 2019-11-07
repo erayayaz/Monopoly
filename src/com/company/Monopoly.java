@@ -54,8 +54,8 @@ public class Monopoly {
 
                 if( !getPlayers().get(currentPlayer).isBankrupt() && getPlayers().get(currentPlayer).isInJail() ){
                     // System.out.println("test");
-                    getPlayers().get(currentPlayer).increaseJailCounter(getPlayers().get(currentPlayer));
-                    getPlayers().get(currentPlayer).setFree(getPlayers().get(currentPlayer));
+                    getPlayers().get(currentPlayer).increaseJailCounter();
+                    getPlayers().get(currentPlayer).setFree();
                 }
 
                 else if ( !getPlayers().get(currentPlayer).isBankrupt() && !getPlayers().get(currentPlayer).isInJail() ) {

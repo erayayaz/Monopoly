@@ -59,12 +59,12 @@ public class TestPlayer {
     }
     @Test
     public void testIncreaseJailCounter(){
-        gamer.increaseJailCounter(gamer);
+        gamer.increaseJailCounter();
         assertEquals(1,gamer.getJailCounter());
     }
     @Test
     public void testResetJailCounter(){
-        gamer.resetJailCounter(gamer);
+        gamer.resetJailCounter();
         assertEquals(0,gamer.getJailCounter());
     }
     @Test
