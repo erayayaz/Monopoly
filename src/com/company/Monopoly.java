@@ -18,16 +18,17 @@ public class Monopoly {
     private Board board;
     private ArrayList<String> names;
     private ArrayList<Player> players;
-    private static ArrayList<String> pieces = new ArrayList<>(Arrays.asList("dog", "hat", "thimble", "boot", "whellbarrow", "cat", "car", "battleship"));
+    private static ArrayList<String> pieces;
 
     public Monopoly(){
         names = new ArrayList<String>();
         players = new ArrayList<Player>();
+        pieces = new ArrayList<>(Arrays.asList("dog", "hat", "thimble", "boot", "whellbarrow", "cat", "car", "battleship"));
     }
 
     public void play(){
         readText();
-        initializePlayers(getNumberOfPlayers(), getStartMoney());
+        initializePlayers();
         assignPiece();
         setBoard(new Board(getNumberOfTaxSquares(), getTax(), getGoSquareMoney()));
         determineTurns();
@@ -39,7 +40,7 @@ public class Monopoly {
     public void simulateGame(Dice dice1, Dice dice2) {
         int playersInGame = getNumberOfPlayers();
         int numberOfBanktruptPlayer = 0;
-        setCycleNumber(0);
+        setCycleNumber(1);
 
         while (!checkBankrupts()) {
             printCycle();
@@ -104,8 +105,8 @@ public class Monopoly {
         bankrupted.setTurn(getNumberOfPlayers() + 1);
     }
 
-    private void printCycle() {
-        if(getCycleNumber() == 0){
+    public void printCycle() {
+        if(getCycleNumber() == 1){
             System.out.println("Game is started");
             System.out.println("The players : ");
             getPlayers().forEach(element -> {
@@ -168,7 +169,7 @@ public class Monopoly {
         }
     }
 
-    public void initializePlayers(int numberOfPlayers, int startMoney){
+    public void initializePlayers(){
         getNames().forEach(element -> {
             Player player = new Player(element, getStartMoney());
             getPlayers().add(player);
