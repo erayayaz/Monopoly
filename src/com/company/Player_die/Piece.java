@@ -3,6 +3,8 @@ package com.company.Player_die;
 import com.company.board.Board;
 import com.company.board.Square;
 
+import java.lang.reflect.Modifier;
+
 public class Piece {
     private String name;
     private int location;
@@ -19,6 +21,7 @@ public class Piece {
         if(location >= 40){
             location -= 40;
         }
+
         this.square = board.getSquareObject(board, location);
     }
 

@@ -75,11 +75,24 @@ public class Monopoly {
                     printIteration(getPlayers().get(i), totalDice);
                }
             }
+            sortPlayers();
             if (numberOfActivePlayers == 1) {
                 System.out.println("Game Over");
                 printWinner();
                 System.exit(1);
             }
+        }
+    }
+
+    public void sortPlayers(){
+        Player[] sortPlayers = new Player[getNumberOfPlayers()];
+        for (int i = 0 ; i < getNumberOfPlayers() ; i++){
+            sortPlayers[i] = getPlayers().get(i);
+        }
+        Arrays.sort(sortPlayers, Comparator.comparing(Player::getMoney));
+        System.out.println("\nWealth ranking: ");
+        for (int i = (getNumberOfPlayers() - 1); i >= 0; i--){
+            System.out.println(sortPlayers[i].getName() + " " + sortPlayers[i].getMoney());
         }
     }
 
