@@ -89,11 +89,7 @@ public class TestPlayer {
         gamer.setDoubleCounter(2);
         assertEquals(2,gamer.getDoubleCounter());
     }
-    @Test
-    public void testCurrentSquare(){
-        gamer.getPiece().setCurrentSquare(square);
-        assertEquals(square,gamer.getPiece().getCurrentSquare());
-    }
+
     @Test
     public void testPiece(){
         gamer.setPiece(piece);

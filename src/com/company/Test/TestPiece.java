@@ -1,4 +1,3 @@
-package com.company.Test;
 
 import com.company.Player_die.Piece;
 import com.company.Player_die.Player;

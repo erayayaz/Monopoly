@@ -4,13 +4,11 @@ import com.company.board.Board;
 import com.company.board.Square;
 
 public class Piece {
-    private Square square;
-    private int location;
     private String name;
-    private int jailCounter = 0;
+    private int location;
     private boolean inJail = false;
-    private Square currentSquare;
-
+    private int jailCounter = 0;
+    private Square square;
     public Piece(String name){
         this.name = name;
         location = 0;
@@ -30,15 +28,6 @@ public class Piece {
             resetJailCounter();
         }
 
-    }
-
-
-    public Square getCurrentSquare() {
-        return currentSquare;
-    }
-
-    public void setCurrentSquare(Square currentSquare) {
-        this.currentSquare = currentSquare;
     }
 
     public void decreaseJailCounter() {
