@@ -91,7 +91,7 @@ public class Monopoly {
                 System.out.println(element.getName() + " choose the " + element.getPiece().getName());
             });
         }
-        System.out.println("\n------------CYCLE " + getCycleNumber() + " ----------------------\n");
+        System.out.println("\n------------CaYCLE " + getCycleNumber() + " ----------------------\n");
     }
 
     public void printIteration(Player player, int moveNumber) {
