@@ -77,7 +77,7 @@ public class Monopoly {
             }
             sortPlayers();
             if (numberOfActivePlayers == 1) {
-                System.out.println("Game Over");
+                System.out.println("Game Over!");
                 printWinner();
                 System.exit(1);
             }
