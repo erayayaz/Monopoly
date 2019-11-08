@@ -5,6 +5,7 @@ import com.company.Player_die.Player;
 import com.company.board.*;
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class Monopoly {
 
@@ -38,71 +39,48 @@ public class Monopoly {
     }
 
     public void simulateGame(Dice dice1, Dice dice2) {
-        int playersInGame = getNumberOfPlayers();
-        int numberOfBanktruptPlayer = 0;
+        int numberOfActivePlayers = getNumberOfPlayers();
         setCycleNumber(1);
 
         while (!checkBankrupts()) {
             printCycle();
             setCycleNumber(getCycleNumber() + 1);
 
-            for (int i = 0; i < playersInGame; i++) {
-                dice1.setFaceValue();
-                dice2.setFaceValue();
-                int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-                int currentPlayer = findPlayer(i);
+            for (int i = 0; i < getNumberOfPlayers(); i++) {
+                if (!getPlayers().get(i).isBankrupt()){
+                    dice1.setFaceValue();
+                    dice2.setFaceValue();
+                    int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
 
-                if( !getPlayers().get(currentPlayer).isBankrupt() && getPlayers().get(currentPlayer).isInJail() ){
-                    // System.out.println("test");
-                    getPlayers().get(currentPlayer).increaseJailCounter();
-                    getPlayers().get(currentPlayer).setFree();
-                }
-
-                else if ( !getPlayers().get(currentPlayer).isBankrupt() && !getPlayers().get(currentPlayer).isInJail() ) {
-                    getPlayers().get(currentPlayer).getPiece().moveTo(totalDice, getBoard());
-
-                    if(getPlayers().get(currentPlayer).getPiece().getSquare() instanceof ArrestedSquare){
-                        getBoard().getSquaresOnBoard().get(getPlayers().get(currentPlayer).getPiece().getLocation()).action(getPlayers().get(currentPlayer));
-                    } else if (getPlayers().get(currentPlayer).getPiece().getSquare() instanceof TaxSquare) {
-                        getBoard().getSquaresOnBoard().get(getPlayers().get(currentPlayer).getPiece().getLocation()).action(getPlayers().get(currentPlayer));
-                    } else if (getPlayers().get(currentPlayer).getPiece().getSquare() instanceof GoSquare) {
-                        getBoard().getSquaresOnBoard().get(getPlayers().get(currentPlayer).getPiece().getLocation()).action(getPlayers().get(currentPlayer));
+                    if (getPlayers().get(i).getPiece().isInJail()) {
+                        // System.out.println("test");
+                        getPlayers().get(i).getPiece().decreaseJailCounter();
+                        getPlayers().get(i).getPiece().setFree();
                     }
+                    if (!getPlayers().get(i).getPiece().isInJail()) {
+                        getPlayers().get(i).getPiece().moveTo(totalDice, getBoard());
 
-                    if (players.get(currentPlayer).isBankrupt() == true) {
-                        numberOfBanktruptPlayer += 1;
-                        changeTurn(getPlayers().get(currentPlayer));
-                        playersInGame--;
+                        Square initialSquare = getPlayers().get(i).getPiece().getSquare();
+                        if (initialSquare instanceof ArrestedSquare
+                                || initialSquare instanceof  TaxSquare
+                                    || initialSquare instanceof GoSquare) {
+                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
+                        }
+
+                        if (getPlayers().get(i).isBankrupt()) {
+                            numberOfActivePlayers--;
+                            getPlayers().get(i).setPiece(null);
+                        }
                     }
-                }
-
-                if (numberOfBanktruptPlayer == getNumberOfPlayers() - 1) {
-                    System.out.println("Game Over");
-                    printWinner();
-                    System.exit(1);
-                }
-                printIteration(getPlayers().get(currentPlayer),totalDice);
+                    printIteration(getPlayers().get(i), totalDice);
+               }
+            }
+            if (numberOfActivePlayers == 1) {
+                System.out.println("Game Over");
+                printWinner();
+                System.exit(1);
             }
         }
-    }
-
-    public int findPlayer(int i){
-        for (int j = 0; j < getNumberOfPlayers() ; j++) {
-            if (getPlayers().get(j).getTurn() == i) {
-                return j;
-            }
-        }
-        return 0;
-    }
-
-    public void changeTurn(Player bankrupted){
-        int a = bankrupted.getTurn();
-        for (int i = 0; i < getNumberOfPlayers(); i++) {
-            if(getPlayers().get(i).getTurn() > a){
-                getPlayers().get(i).setTurn(getPlayers().get(i).getTurn() - 1);
-            }
-        }
-        bankrupted.setTurn(getNumberOfPlayers() + 1);
     }
 
     public void printCycle() {
@@ -116,27 +94,35 @@ public class Monopoly {
         System.out.println("\n------------CYCLE " + getCycleNumber() + " ----------------------\n");
     }
 
-    public void printIteration(Player player, int moveNumber){
-        if((player.isInJail() == true)){
-            System.out.println(player.getName() + " is now in jail.");
-            System.out.println("After " + (2 - player.getJailCounter()) + " turns player will be freed");
+    public void printIteration(Player player, int moveNumber) {
+        if (!player.isBankrupt()) {
+            if (player.getPiece().getJailCounter() == 3){
+                System.out.println(player.getName() + " rools " + moveNumber);
+                System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
+                System.out.println(player.getName() + " arrested");
+            }
+            if ((player.getPiece().isInJail() == true)) {
+                System.out.println(player.getName() + " is now in jail.");
+                System.out.println(player.getName() + " will be free after " + player.getPiece().getJailCounter() + " turn(s)");
+            } else {
+                System.out.println(player.getName() + " rools " + moveNumber);
+                System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
+                System.out.println(player.getName() + " has " + player.getMoney());
+            }
         }
         else{
-            System.out.println(player.getName() + " rools " + moveNumber);
-            System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
-            System.out.println(player.getName() + " has " + player.getMoney());
+            System.out.println(player.getName() + " went bankrupt.");
         }
         System.out.println("---------------------------");
     }
 
     public void printWinner(){
-        String name = "";
-        for (int i = 0; i < getNumberOfPlayers(); i++) {
-            if(getPlayers().get(i).isBankrupt() == false){
-                name = getPlayers().get(i).getName();
-            }
-        }
-        System.out.println("Winner is " + name);
+        AtomicReference<String> name = new AtomicReference<>("");
+        getPlayers().forEach(element -> {
+            if(!element.isBankrupt())
+                name.set(element.getName());
+        });
+        System.out.println("\nWinner is " + name);
     }
 
     public void readText(){

@@ -5,16 +5,12 @@ import com.company.board.Square;
 public class Player {
 
     //Property of our Player
-    private int jailCounter = 0;
     private String name;
     private double money;
     private int doubleCounter;
-    private boolean inJail = false;
     private boolean isBankrupt;
     private int turn;
     private Piece piece;
-    private Square currentSquare;
-
 
     public Player(String name, int money) {
         this.name = name;
@@ -22,13 +18,6 @@ public class Player {
         this.isBankrupt = false;
     }
 
-    public void increaseJailCounter() {
-        setJailCounter(getJailCounter() + 1);
-    }
-
-    public void resetJailCounter() {
-        setJailCounter(0);
-    }
 
     public void increaseMoney(double money) {
         this.money += money;
@@ -45,13 +34,6 @@ public class Player {
         return die1.getFaceValue() + die2.getFaceValue();
     }
 
-    public void setFree(){
-        if(getJailCounter() == 2){
-            setInJail(false);
-            resetJailCounter();
-        }
-
-    }
 
     public void setBankrupt(boolean bankrupt) {
         this.isBankrupt = bankrupt;
@@ -86,14 +68,6 @@ public class Player {
     }
 
 
-    public boolean isInJail() {
-
-        return inJail;
-    }
-
-    public void setInJail(boolean inJail) {
-        this.inJail = inJail;
-    }
 
     public void incrementDoubleCounter() {
         doubleCounter++;
@@ -111,25 +85,8 @@ public class Player {
         return piece;
     }
 
-
-    public int getJailCounter() {
-        return jailCounter;
-    }
-
-    public void setJailCounter(int jailCounter) {
-        this.jailCounter = jailCounter;
-    }
-
     public void setDoubleCounter(int doubleCounter) {
         this.doubleCounter = doubleCounter;
-    }
-
-    public Square getCurrentSquare() {
-        return currentSquare;
-    }
-
-    public void setCurrentSquare(Square currentSquare) {
-        this.currentSquare = currentSquare;
     }
 
     public void setPiece(Piece piece) {

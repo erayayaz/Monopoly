@@ -4,9 +4,12 @@ import com.company.board.Board;
 import com.company.board.Square;
 
 public class Piece {
-    Square square;
-    int location;
-    String name;
+    private Square square;
+    private int location;
+    private String name;
+    private int jailCounter = 0;
+    private boolean inJail = false;
+    private Square currentSquare;
 
     public Piece(String name){
         this.name = name;
@@ -19,6 +22,48 @@ public class Piece {
             location -= 40;
         }
           this.square = board.getSquareObject(board, location);
+    }
+
+    public void setFree(){
+        if(getJailCounter() == 0){
+            setInJail(false);
+            resetJailCounter();
+        }
+
+    }
+
+
+    public Square getCurrentSquare() {
+        return currentSquare;
+    }
+
+    public void setCurrentSquare(Square currentSquare) {
+        this.currentSquare = currentSquare;
+    }
+
+    public void decreaseJailCounter() {
+        setJailCounter(getJailCounter() - 1);
+    }
+
+    public void resetJailCounter() {
+        setJailCounter(0);
+    }
+
+    public int getJailCounter() {
+        return jailCounter;
+    }
+
+    public void setJailCounter(int jailCounter) {
+        this.jailCounter = jailCounter;
+    }
+
+    public boolean isInJail() {
+
+        return inJail;
+    }
+
+    public void setInJail(boolean inJail) {
+        this.inJail = inJail;
     }
 
     public Square getSquare(){

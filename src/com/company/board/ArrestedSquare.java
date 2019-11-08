@@ -36,8 +36,9 @@ public class ArrestedSquare extends Square {
 
     @Override
     public void action(Player player) {
-        player.setInJail(true);
-        player.getPiece().setLocation(29);
+        player.getPiece().setInJail(true);
+        player.getPiece().setJailCounter(3);
+        player.getPiece().setLocation(19);
     }
 
 
