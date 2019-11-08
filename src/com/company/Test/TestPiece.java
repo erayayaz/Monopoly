@@ -38,4 +38,24 @@ public class TestPiece {
         piece.setName("Cat");
         assertEquals("Cat",piece.getName());
     }
+    @Test
+    public void testDecreaseJailCounter(){
+        piece.decreaseJailCounter();
+        assertEquals(-1,piece.getJailCounter());
+    }
+    @Test
+    public void testResetJailCounter(){
+        piece.resetJailCounter();
+        assertEquals(0,piece.getJailCounter());
+    }
+    @Test
+    public void testSetJailCounter(){
+        piece.setJailCounter(2);
+        assertEquals(2,piece.getJailCounter());
+    }
+    @Test
+    public void testIsInJail(){ //also it is testing the set in jail mehod
+        piece.setInJail(true);
+        assertEquals(true,piece.isInJail());
+    }
 }

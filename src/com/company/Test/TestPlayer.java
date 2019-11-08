@@ -58,26 +58,6 @@ public class TestPlayer {
         assertEquals(2,gamer.getTurn());
     }
     @Test
-    public void testIncreaseJailCounter(){
-        gamer.getPiece().decreaseJailCounter();
-        assertEquals(1,gamer.getPiece().getJailCounter());
-    }
-    @Test
-    public void testResetJailCounter(){
-        gamer.getPiece().resetJailCounter();
-        assertEquals(0,gamer.getPiece().getJailCounter());
-    }
-    @Test
-    public void testSetJailCounter(){
-        gamer.getPiece().setJailCounter(2);
-        assertEquals(2,gamer.getPiece().getJailCounter());
-    }
-    @Test
-    public void testIsInJail(){ //also it is testing the set in jail mehod
-        gamer.getPiece().setInJail(true);
-        assertEquals(true,gamer.getPiece().isInJail());
-    }
-    @Test
     public void testIncrementandResetDoubleCounter(){
         gamer.incrementDoubleCounter();
         assertEquals(1,gamer.getDoubleCounter());
