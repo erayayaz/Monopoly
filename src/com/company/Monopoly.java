@@ -74,7 +74,9 @@ public class Monopoly {
                     }
                     printIteration(getPlayers().get(i), totalDice);
                }
+
             }
+            printCycle(players,numberOfPlayers,numberOfActivePlayers);
             if (numberOfActivePlayers == 1) {
                 System.out.println("Game Over");
                 printWinner();
@@ -94,6 +96,74 @@ public class Monopoly {
         System.out.println("\n------------CYCLE " + getCycleNumber() + " ----------------------\n");
     }
 
+    public void printCycle(ArrayList<Player> players, int numberOfPlayers, int playersInGame){
+        int[] balances = new int[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
+            if(players.get(i).isBankrupt() == false){
+                balances[i] = players.get(i).getMoney();
+            }
+        }
+        int[] copy = new int[numberOfPlayers];
+        for (int i = 0; i < numberOfPlayers; i++) {
+            copy[i] = balances[i];
+        }
+        bubbleSorat(balances);
+        System.out.println("At the end of the tour : ");
+        for (int i = 0; i < playersInGame; i++) {
+            int money = balances[i];
+
+            if(players.get(i).isBankrupt() == false){
+                int j = find(money,copy);
+                System.out.println(players.get(j).getName() + " is on " + players.get(j).getPiece().getLocation() + " and has " + players.get(j).getMoney());
+            }
+        }
+    }
+
+    public int find(int balance, int[] copy){
+        for (int i = 0; i < numberOfPlayers; i++) {
+            if(balance == copy[i]){
+                copy[i] = 0;
+                return i;
+            }
+        }
+        return 0;
+    }
+
+    public void bubbleSort(int[] array) {
+        boolean swapped = true;
+        int j = 0;
+        int tmp;
+        while (swapped) {
+            swapped = false;
+            j++;
+            for (int i = 0; i < array.length - j; i++) {
+                if (array[i] > array[i + 1]) {
+                    tmp = array[i];
+                    array[i] = array[i + 1];
+                    array[i + 1] = tmp;
+                    swapped = true;
+                }
+            }
+        }
+    }
+    private static void bubbleSorat(int[] intArray) {
+        int n = intArray.length;
+        int temp = 0;
+
+        for(int i=0; i < n; i++){
+            for(int j=1; j < (n-i); j++){
+
+                if(intArray[j-1] < intArray[j]){
+                    //swap the elements!
+                    temp = intArray[j-1];
+                    intArray[j-1] = intArray[j];
+                    intArray[j] = temp;
+                }
+
+            }
+        }
+
+    }
     public void printIteration(Player player, int moveNumber) {
         if (!player.isBankrupt()) {
             if (player.getPiece().getJailCounter() == 3){
