@@ -19,7 +19,7 @@ public class Piece {
         if(location >= 40){
             location -= 40;
         }
-          this.square = board.getSquareObject(board, location);
+        this.square = board.getSquareObject(board, location);
     }
 
     public void setFree(){
@@ -27,7 +27,6 @@ public class Piece {
             setInJail(false);
             resetJailCounter();
         }
-
     }
 
     public void decreaseJailCounter() {

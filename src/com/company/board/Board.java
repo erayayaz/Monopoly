@@ -14,6 +14,7 @@ public class Board {
         this.squaresOnBoard = new ArrayList<>();
         initializeBoard(numberOfTaxSquares,taxAmount,goSquareMoney);
     }
+
     public void initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
         for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
             this.getSquaresOnBoard().add(null);

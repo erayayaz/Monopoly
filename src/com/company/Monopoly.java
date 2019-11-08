@@ -98,8 +98,9 @@ public class Monopoly {
         if (!player.isBankrupt()) {
             if (player.getPiece().getJailCounter() == 3){
                 System.out.println(player.getName() + " rools " + moveNumber);
-                System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
+                System.out.println(player.getName() + " moved to 29 with " + player.getPiece().getName());
                 System.out.println(player.getName() + " arrested");
+                System.out.println(player.getName() + " was exiled to the Jail Square(19)");
             }
             if ((player.getPiece().isInJail() == true)) {
                 System.out.println(player.getName() + " is now in jail.");
