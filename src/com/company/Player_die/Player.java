@@ -1,6 +1,9 @@
 package com.company.Player_die;
 
+import com.company.board.PurchasableSquare;
 import com.company.board.Square;
+
+import java.util.ArrayList;
 
 public class Player {
 
@@ -11,11 +14,13 @@ public class Player {
     private boolean isBankrupt;
     private int turn;
     private Piece piece;
+    private ArrayList<PurchasableSquare> properties;
 
     public Player(String name, int money) {
         this.name = name;
         this.money = money;
         this.isBankrupt = false;
+        properties = new ArrayList<PurchasableSquare>();
     }
 
 
@@ -32,6 +37,13 @@ public class Player {
         die1.setFaceValue();
         die2.setFaceValue();
         return die1.getFaceValue() + die2.getFaceValue();
+    }
+
+    public void setPropertiesFree(){
+        int size = this.getProperties().size();
+        for (int i = 0; i < size; i++) {
+            this.getProperties().get(i).setOwned(false);
+        }
     }
 
 
@@ -93,4 +105,11 @@ public class Player {
         this.piece = piece;
     }
 
+    public ArrayList<PurchasableSquare> getProperties() {
+        return properties;
+    }
+
+    public void setProperties(ArrayList<PurchasableSquare> properties) {
+        this.properties = properties;
+    }
 }

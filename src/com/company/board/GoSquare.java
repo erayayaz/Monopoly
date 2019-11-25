@@ -50,4 +50,5 @@ public class GoSquare extends Square{
     }
 
 
+
 }
