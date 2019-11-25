@@ -68,8 +68,8 @@ public class Monopoly {
                             getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
                         }
                         else if(initialSquare instanceof PurchasableSquare){
-                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).buy(getPlayers().get(i));
-                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).rent(getPlayers().get(i), totalDice);
+                            ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
+                            ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
 
                         }
 

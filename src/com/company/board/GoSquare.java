@@ -49,15 +49,6 @@ public class GoSquare extends Square{
         player.increaseMoney(this.goSquareMoney);
     }
 
-    @Override
-    public void buy(Player player) {
-
-    }
-
-    @Override
-    public void rent(Player player, int totalDice) {
-
-    }
 
 
 }

@@ -39,15 +39,6 @@ public class JailSquare extends Square {
 
     }
 
-    @Override
-    public void buy(Player player) {
-
-    }
-
-    @Override
-    public void rent(Player player, int totalDice) {
-
-    }
 
 
 }

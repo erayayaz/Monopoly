@@ -1,5 +1,6 @@
 package com.company.board;
 
+import com.company.Player_die.Dice;
 import com.company.Player_die.Player;
 
 public abstract class PurchasableSquare extends Square {
@@ -15,8 +16,6 @@ public abstract class PurchasableSquare extends Square {
     }
 
 
-    public abstract void rent(Player player, int dice);
-    public abstract void buy(Player player);
 
     public int getPrice() {
         return price;
@@ -48,5 +47,13 @@ public abstract class PurchasableSquare extends Square {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public abstract void buy(Player player);
+    public abstract void rent(Player player, int dice);
+
+    @Override
+    public void action(Player player) {
+
     }
 }

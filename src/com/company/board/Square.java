@@ -39,7 +39,5 @@ public abstract class Square {
     public abstract void action(Player player);
 
 
-    public abstract void buy(Player player);
 
-    public abstract void rent(Player player, int totalDice);
 }

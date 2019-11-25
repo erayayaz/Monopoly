@@ -36,10 +36,12 @@ public class RailRoad extends PurchasableSquare {
 
     public int numberOfRailRoads(Player player){
         int number = 0;
-        for (PurchasableSquare square: this.getPlayer().getProperties()
-        ) {
-            if(square instanceof RailRoad){
-                number += 1;
+        if(player.getProperties().size() > 0){
+            for (PurchasableSquare square: player.getProperties()
+            ) {
+                if(square instanceof RailRoad){
+                    number += 1;
+                }
             }
         }
         return number;
