@@ -24,6 +24,19 @@ public class Board {
         getSquaresOnBoard().set(goSquare.getIndex(),goSquare);
 
         int randomIndexNumber = 0;
+
+        Square electric = new ElectricCompany("ElectricCompany", 10,150);
+        getSquaresOnBoard().set(electric.getIndex(), electric);
+
+        Square water = new WaterWorks("WaterCompany", 20,150);
+        getSquaresOnBoard().set(water.getIndex(), water);
+        int a = 6;
+        for (int i = 0; i < 4; i++) {
+            Square railRoad = new RailRoad("RailRoad", a, 200);
+            getSquaresOnBoard().set(railRoad.getIndex(), railRoad);
+            a += 10;
+        }
+
         Square jail = new JailSquare("Jail", 19);
         getSquaresOnBoard().set(jail.getIndex(), jail);
 

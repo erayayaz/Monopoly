@@ -41,6 +41,16 @@ public class ArrestedSquare extends Square {
         player.getPiece().setLocation(19);
     }
 
+    @Override
+    public void buy(Player player) {
+
+    }
+
+    @Override
+    public void rent(Player player, int totalDice) {
+
+    }
+
 
 }
 

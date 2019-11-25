@@ -48,10 +48,11 @@ public class Monopoly {
 
             for (int i = 0; i < getNumberOfPlayers(); i++) {
                 if (!getPlayers().get(i).isBankrupt()){
-                    dice1.setFaceValue();
-                    dice2.setFaceValue();
-                    int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
+                    //dice1.setFaceValue();
+                    //dice2.setFaceValue();
 
+                    //int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
+                    int totalDice = players.get(i).rollDice(dice1, dice2);
                     if (getPlayers().get(i).getPiece().isInJail()) {
                         // System.out.println("test");
                         getPlayers().get(i).getPiece().decreaseJailCounter();
@@ -66,10 +67,16 @@ public class Monopoly {
                                     || initialSquare instanceof GoSquare) {
                             getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
                         }
+                        else if(initialSquare instanceof PurchasableSquare){
+                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).buy(getPlayers().get(i));
+                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).rent(getPlayers().get(i), totalDice);
+
+                        }
 
                         if (getPlayers().get(i).isBankrupt()) {
                             numberOfActivePlayers--;
                             getPlayers().get(i).setPiece(null);
+                            getPlayers().get(i).setPropertiesFree();
                         }
                     }
                     printIteration(getPlayers().get(i), totalDice);
@@ -122,6 +129,12 @@ public class Monopoly {
                 System.out.println(player.getName() + " rools " + moveNumber);
                 System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
                 System.out.println(player.getName() + " has " + player.getMoney());
+                int size = player.getProperties().size();
+                if(size > 0){
+                    for (int i = 0; i < size; i++) {
+                        System.out.println(player.getName() + " has " + player.getProperties().get(i));
+                    }
+                }
             }
         }
         else{

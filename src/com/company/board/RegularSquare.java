@@ -37,4 +37,14 @@ public class RegularSquare extends Square {
     @Override
     public void action(Player player) {
     }
+
+    @Override
+    public void buy(Player player) {
+
+    }
+
+    @Override
+    public void rent(Player player, int totalDice) {
+
+    }
 }

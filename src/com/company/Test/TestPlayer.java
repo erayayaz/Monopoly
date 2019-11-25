@@ -1,4 +1,4 @@
-import com.company.Player_die.Dice;
+/*import com.company.Player_die.Dice;
 import com.company.Player_die.Piece;
 import com.company.Player_die.Player;
 import com.company.board.Square;
@@ -76,4 +76,4 @@ public class TestPlayer {
         assertEquals(piece,gamer.getPiece());
     }
 
-}
+}*/
