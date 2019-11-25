@@ -1,6 +1,5 @@
 package com.company;
 import com.company.Player_die.Dice;
-import com.company.Player_die.Piece;
 import com.company.Player_die.Player;
 import com.company.board.*;
 import java.io.*;
@@ -20,11 +19,13 @@ public class Monopoly {
     private ArrayList<String> names;
     private ArrayList<Player> players;
     private static ArrayList<String> pieces;
+    private Dice dice[] = new Dice[2];
 
     public Monopoly(){
         names = new ArrayList<String>();
         players = new ArrayList<Player>();
         pieces = new ArrayList<>(Arrays.asList("dog", "hat", "thimble", "boot", "whellbarrow", "cat", "car", "battleship"));
+        createDice(dice);
     }
 
     public void play(){
@@ -33,12 +34,10 @@ public class Monopoly {
         assignPiece();
         setBoard(new Board(getNumberOfTaxSquares(), getTax(), getGoSquareMoney()));
         determineTurns();
-        Dice dice1 = new Dice();
-        Dice dice2 = new Dice();
-        simulateGame(dice1,dice2);
+        simulateGame();
     }
 
-    public void simulateGame(Dice dice1, Dice dice2) {
+    public void simulateGame() {
         int numberOfActivePlayers = getNumberOfPlayers();
         setCycleNumber(1);
 
@@ -52,7 +51,7 @@ public class Monopoly {
                     //dice2.setFaceValue();
 
                     //int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-                    int totalDice = players.get(i).rollDice(dice1, dice2);
+                    int totalDice = players.get(i).rollDice(getDice()[0], getDice()[1]);
                     if (getPlayers().get(i).getPiece().isInJail()) {
                         // System.out.println("test");
                         getPlayers().get(i).getPiece().decreaseJailCounter();
@@ -307,6 +306,14 @@ public class Monopoly {
 
     public void setStartMoney(int startMoney) {
         this.startMoney = startMoney;
+    }
+    public Dice[] getDice() {
+        return dice;
+    }
+
+    public void createDice(Dice[] dice) {
+        dice[0] = new Dice();
+        dice[1] = new Dice();
     }
 
     public boolean isGameFinished() {
