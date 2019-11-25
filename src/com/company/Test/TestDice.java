@@ -17,7 +17,7 @@ public class TestDice {
     public void setUp() throws Exception {
         die1= new Dice();
         die2= new Dice();
-        gamer = new Player("Eray",500);
+        gamer = new Player("Eray",500, "cat");
 
     }
 

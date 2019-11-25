@@ -16,13 +16,13 @@ public class Player {
     private Piece piece;
     private ArrayList<PurchasableSquare> properties;
 
-    public Player(String name, int money) {
+    public Player(String name, int money,String pieceName) {
+        setPiece(pieceName);
         this.name = name;
         this.money = money;
         this.isBankrupt = false;
         properties = new ArrayList<PurchasableSquare>();
     }
-
 
     public void increaseMoney(double money) {
         this.money += money;
@@ -101,8 +101,8 @@ public class Player {
         this.doubleCounter = doubleCounter;
     }
 
-    public void setPiece(Piece piece) {
-        this.piece = piece;
+    public void setPiece(String name) {
+        piece = new Piece(name);
     }
 
     public ArrayList<PurchasableSquare> getProperties() {

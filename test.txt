@@ -3,4 +3,4 @@ startMoney 200
 goSquareMoney 100
 numberOfTaxSquares 20
 taxRate 10
-suleyman rahim berk eray
+suleyman eray rahim berk

@@ -184,7 +184,8 @@ public class Monopoly {
 
     public void initializePlayers(){
         getNames().forEach(element -> {
-            Player player = new Player(element, getStartMoney());
+            String pieceName= assignPiece();
+            Player player = new Player(element, getStartMoney() , pieceName);
             getPlayers().add(player);
         });
     }
@@ -214,18 +215,12 @@ public class Monopoly {
         }
     }
 
-    public void assignPiece(){
-        int a = 8;
-        for (int i = 0; i < getNumberOfPlayers(); i++) {
-            String temp;
-            Random rand = new Random();
-            int random = rand.nextInt(a);
-            temp = getPieces().get(random);
-            a--;
-            Piece piece = new Piece(temp);
-            getPlayers().get(i).setPiece(piece);
-            getPieces().remove(random);
-        }
+    public String assignPiece(){
+        Random rand = new Random();
+        int value = rand.nextInt(getPieces().size());
+        String temp = getPieces().get(value);
+        getPieces().remove(value);
+        return temp;
     }
 
     public void determineTurns(){

@@ -2,8 +2,10 @@ package com.company.Player_die;
 
 import com.company.board.Board;
 import com.company.board.Square;
+import jdk.nashorn.internal.codegen.FieldObjectCreator;
 
 import java.lang.reflect.Modifier;
+import java.util.Objects;
 
 public class Piece {
     private String name;
@@ -20,6 +22,7 @@ public class Piece {
         location += dice_Value;
         if(location >= 40){
             location -= 40;
+            System.out.println(FieldObjectCreator.class.getDeclaredClasses().getClass());
         }
 
         this.square = board.getSquareObject(board, location);
