@@ -36,7 +36,7 @@ public class RailRoad extends PurchasableSquare {
 
     public int numberOfRailRoads(Player player){
         int number = 0;
-        if(player.getProperties().size() > 0){
+        if(this.isOwned()){
             for (PurchasableSquare square: player.getProperties()
             ) {
                 if(square instanceof RailRoad){
