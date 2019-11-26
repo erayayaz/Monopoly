@@ -17,6 +17,7 @@ public class Dice {
 
     //returns face value of the dice
     public int getFaceValue() {
+        setFaceValue();
         return faceValue;
     }
 }

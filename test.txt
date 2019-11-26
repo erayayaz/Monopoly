@@ -1,6 +1,6 @@
-numberOfPlayers 4
+numberOfPlayers 7
 startMoney 200
 goSquareMoney 100
 numberOfTaxSquares 20
 taxRate 10
-suleyman eray rahim berk
+suleyman eray rahim berk ahmet hakan yusuf

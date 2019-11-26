@@ -51,7 +51,7 @@ public class Monopoly {
                     //dice2.setFaceValue();
 
                     //int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-                    int totalDice = players.get(i).rollDice(getDice()[0], getDice()[1]);
+                    int totalDice = getPlayers().get(i).rollDice(getDice()[0], getDice()[1]);
                     if (getPlayers().get(i).getPiece().isInJail()) {
                         // System.out.println("test");
                         getPlayers().get(i).getPiece().decreaseJailCounter();
@@ -182,12 +182,48 @@ public class Monopoly {
     }
 
     public void initializePlayers(){
-        getNames().forEach(element -> {
-            String pieceName= assignPiece();
-            Player player = new Player(element, getStartMoney() , pieceName);
-            getPlayers().add(player);
-        });
+        System.out.println("Players roll the dices to determine the order.");
+        System.out.println("-----------------------------------------------");
+        for (int i = 0; i < numberOfPlayers; i++){
+            order(getNames());
+        }
     }
+    public void order(ArrayList<String> names){
+        ArrayList<String> temp = new ArrayList<>();
+        int max = -1 , faceValue = -1 , index = 0;
+        for (int i = 0; i < names.size() ; i++){
+            faceValue = dice[0].getFaceValue() + dice[1].getFaceValue();
+            System.out.println(names.get(i) + " rolls " + faceValue);
+            if (faceValue > max){
+                max = faceValue;
+                temp.clear();
+                temp.add(names.get(i));
+                index = i;
+            }
+            else if(faceValue == max){
+                temp.add(names.get(i));
+            }
+        }
+        if (temp.size() == 1){
+            System.out.println(temp.get(0) + " rolls the max face value!");
+            System.out.println("-----------------------------------");
+            String pieceName = assignPiece();
+            getPlayers().add(new Player(names.get(index),getStartMoney() , pieceName));
+            getNames().remove(names.get(index));
+            return;
+        }
+        else if (temp.size() > 1){
+            for (String name : temp){
+                System.out.print(name + ", ");
+            }
+            System.out.println("rolls the same face value");
+            System.out.println("Now, They will rolls the dice again!");
+            order(temp);
+        }
+        return;
+    }
+
+
 
     public boolean gameFinished(){
         if(getBoard().getPieces().size() == 1){

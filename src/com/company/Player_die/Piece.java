@@ -22,7 +22,6 @@ public class Piece {
         location += dice_Value;
         if(location >= 40){
             location -= 40;
-            System.out.println(FieldObjectCreator.class.getDeclaredClasses().getClass());
         }
 
         this.square = board.getSquareObject(board, location);
