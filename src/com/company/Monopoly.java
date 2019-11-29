@@ -69,7 +69,8 @@ public class Monopoly {
                         else if(initialSquare instanceof PurchasableSquare){
                             ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
                             ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
-
+                        }else if(initialSquare instanceof LuckCard){
+                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
                         }
 
                         if (getPlayers().get(i).isBankrupt()) {

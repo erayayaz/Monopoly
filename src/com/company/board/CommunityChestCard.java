@@ -2,10 +2,9 @@ package com.company.board;
 
 import com.company.Player_die.Player;
 
-public class RegularSquare extends Square {
+public class CommunityChestCard extends Square {
 
-
-    public RegularSquare(String name, int index) {
+    public CommunityChestCard(String name, int index) {
         super(name, index);
     }
 
@@ -36,5 +35,10 @@ public class RegularSquare extends Square {
 
     @Override
     public void action(Player player) {
+        CommunityChest.pickCard(player);
+
     }
+
+
+
 }

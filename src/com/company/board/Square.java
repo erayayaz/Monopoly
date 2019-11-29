@@ -37,7 +37,4 @@ public abstract class Square {
     }
 
     public abstract void action(Player player);
-
-
-
 }

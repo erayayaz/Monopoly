@@ -19,6 +19,11 @@ public class Board {
         for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
             this.getSquaresOnBoard().add(null);
         }
+        Square luckSquare = new LuckCard("luckSqaure",30);
+        getSquaresOnBoard().set(luckSquare.getIndex(),luckSquare);
+
+        Square communityChestSquare = new CommunityChestCard("luckSqaure",32);
+        getSquaresOnBoard().set(communityChestSquare.getIndex(),communityChestSquare);
 
         Square goSquare = new GoSquare("goSquare", 0, goSquareMoney);
         getSquaresOnBoard().set(goSquare.getIndex(),goSquare);
