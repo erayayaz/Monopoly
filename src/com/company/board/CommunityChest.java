@@ -7,12 +7,6 @@ public class CommunityChest {
     static int current = 0;
     public CommunityChest(String name, int index) {
         int[] cardQueque  = new int[10] ;
-        for(int i =0; i<10;i++){
-            cardQueque[i]=i;
-        }
-        if(cardQueque[0]==0){//para ekle
-
-        }
     }
     public static void pickCard(Player player){
         if(current==0){//para 100 artsın
@@ -37,8 +31,5 @@ public class CommunityChest {
             player.decreaseMoney(100);
             current = 0;
         }
-
-
     }
-
 }

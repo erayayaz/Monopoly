@@ -5,14 +5,8 @@ import com.company.Player_die.Player;
 public class Luck {
 
     static int current = 0;
-    public Luck(String name, int index) {
-        int[] cardQueque  = new int[10] ;
-        for(int i =0; i<10;i++){
-            cardQueque[i]=i;
-        }
-        if(cardQueque[0]==0){//para ekle
+    public Luck() {
 
-        }
     }
     public static void pickCard(Player player){
 

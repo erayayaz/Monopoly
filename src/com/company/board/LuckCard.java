@@ -3,12 +3,8 @@ package com.company.board;
 import com.company.Player_die.Player;
 
 public class LuckCard extends Square {
-
-
     public LuckCard(String name, int index) {
-
         super(name, index);
-        //
     }
 
     @Override
