@@ -152,6 +152,7 @@ public class Monopoly {
             System.out.println(player.getName() + " went bankrupt.");
         }
         System.out.println("---------------------------");
+
     }
 
     public void printWinner(){
