@@ -6,7 +6,6 @@ import com.company.Player_die.Player;
 public abstract class PurchasableSquare extends Square {
 
     private int price;
-    private int rent;
     private boolean isOwned;
     private Player player;
 
@@ -25,13 +24,6 @@ public abstract class PurchasableSquare extends Square {
         this.price = price;
     }
 
-    public int getRent() {
-        return rent;
-    }
-
-    public void setRent(int rent) {
-        this.rent = rent;
-    }
 
     public boolean isOwned() {
         return isOwned;

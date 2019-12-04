@@ -28,7 +28,7 @@ public class PropertiesSquare extends PurchasableSquare {
     public void rent(Player player, int dice) {
 
         if (this.isOwned()) {
-            this.getPlayer().increaseMoney(player.decreaseMoney(this.getRent()));
+            this.getPlayer().increaseMoney(player.decreaseMoney(this.rent));
             if (player.getMoney() <= 0)
                 player.setBankrupt(true);
         }

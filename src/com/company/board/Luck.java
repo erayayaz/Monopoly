@@ -28,11 +28,13 @@ public class Luck {
             current++;
         }else if(current==4){
             System.out.println("Pay 100 ₺ for real estate tax.");
-            player.setMoney(player.getMoney()- 100);
+           // player.setMoney(player.getMoney()- 100);
+            player.decreaseMoney(100);
             current++;
         }else if(current==5){
             System.out.println("You have a traffic penalty and You will pay the 200 ₺.");
-            player.setMoney(player.getMoney()-200);
+            //player.setMoney(player.getMoney()-200);
+            player.decreaseMoney(200);
             current=0;
         }
     }

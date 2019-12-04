@@ -16,6 +16,12 @@ public class Board {
     }
 
     public void initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
+
+        String[] namesOfSquares = {"Üsküdar","Zümrütevler","Çamlıca","Fındıklı","Kozyatağı","Beylikdüzü","Göztepe","Fikirtepe",
+                                      "Ataşehir","Sarıyer","Fatih", "Mecidiyeköy","Çemenzar","Kuyubaşı","Şişli","Beşiktaş","Fenerbahçe",
+                                      "Koşuyolu","Erenköy","Bağdat Street","Haliç","Eyüp","Maslak","Bebek","Acıbadem","Ünalan","Kuyubaşı","Aslantepe","Ziverbey",
+                                    "Küçükçekmece","Göktürk","Sarıgöl", "Sümer", "GOP", "Silivri","Tarlabaşı","Okmeydanı","Taksim","Etiler","Kavacık"};
+
         for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
             this.getSquaresOnBoard().add(null);
         }
@@ -57,11 +63,12 @@ public class Board {
                 i++;
             }
         }
-
+        int price = 50;
         for (int i = 0; i < NUMBER_OF_SQUARES   ; i++) {
             if ( getSquaresOnBoard().get(i) == null ){
-                Square regularSquare =  new RegularSquare("Regular Square", i);
-                getSquaresOnBoard().set(i,regularSquare);
+                Square propertieSquare =  new PropertiesSquare(namesOfSquares[i],i,price,price / 4);
+                getSquaresOnBoard().set(i,propertieSquare);
+                price += 10;
             }
         }
     }
