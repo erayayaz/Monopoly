@@ -140,9 +140,11 @@ public class Monopoly {
                 System.out.println(player.getName() + " has " + player.getMoney());
                 int size = player.getProperties().size();
                 if(size > 0){
+                    System.out.println(player.getName() + " has " + player.getProperties().size() + " property(ies). \n{");
                     for (int i = 0; i < size; i++) {
-                        System.out.println(player.getName() + " has " + player.getProperties().get(i));
+                        System.out.println("\tName: "+ player.getProperties().get(i).getName() + " , Index: " + player.getProperties().get(i).getIndex());
                     }
+                    System.out.println("}");
                 }
             }
         }
@@ -194,7 +196,7 @@ public class Monopoly {
     public void initializePlayers(){
         System.out.println("Players roll the dices to determine the order.");
         System.out.println("-----------------------------------------------");
-        for (int i = 0; i < numberOfPlayers; i++){
+        for (int i = 0; i < getNumberOfPlayers(); i++){
             order(getNames());
         }
     }

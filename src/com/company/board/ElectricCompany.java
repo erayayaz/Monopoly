@@ -22,7 +22,6 @@ public class ElectricCompany extends PurchasableSquare {
             int money = modifier * dice;
             player.decreaseMoney(money);
             this.getPlayer().increaseMoney(money);
-
         }
         if ( player.getMoney() <= 0)
             player.setBankrupt(true);
@@ -43,14 +42,11 @@ public class ElectricCompany extends PurchasableSquare {
     }
 
     public boolean hasWaterWorks(Player player){
-        for (PurchasableSquare square: this.getPlayer().getProperties()
-             ) {
+        for (PurchasableSquare square: this.getPlayer().getProperties()){
                 if(square instanceof WaterWorks){
                     return true;
                 }
         }
         return false;
     }
-
-
 }
