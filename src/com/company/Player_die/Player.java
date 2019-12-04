@@ -33,10 +33,9 @@ public class Player {
 
     }
 
-    public int rollDice(Dice die1, Dice die2) {
+    public int rollDice(Dice die1) {
         die1.setFaceValue();
-        die2.setFaceValue();
-        return die1.getFaceValue() + die2.getFaceValue();
+        return die1.getFaceValue();
     }
 
     public void setPropertiesFree(){

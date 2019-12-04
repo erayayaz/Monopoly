@@ -30,7 +30,7 @@ public class WaterWorks extends PurchasableSquare{
 
     @Override
     public void buy(Player player) {
-        if (player.getMoney() >= this.getPrice() && player.rollDice(new Dice(), new Dice()) >= 8 && !this.isOwned()){
+        if (player.getMoney() >= this.getPrice() && player.rollDice(new Dice()) + player.rollDice(new Dice()) >= 8 && !this.isOwned()){
             this.setPlayer(player);
             this.setOwned(true);
             player.getProperties().add(this);

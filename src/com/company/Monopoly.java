@@ -49,9 +49,18 @@ public class Monopoly {
                 if (!getPlayers().get(i).isBankrupt()){
                     //dice1.setFaceValue();
                     //dice2.setFaceValue();
-
-                    //int totalDice = dice1.getFaceValue() + dice2.getFaceValue();
-                    int totalDice = getPlayers().get(i).rollDice(getDice()[0], getDice()[1]);
+                    int dice1 = getPlayers().get(i).rollDice(getDice()[0]);
+                    int dice2 = getPlayers().get(i).rollDice(getDice()[1]);
+                    int totalDice = dice1 + dice2;
+                    if(dice1 == dice2){
+                        getPlayers().get(i).setDoubleCounter(getPlayers().get(i).getDoubleCounter() + 1);
+                    }
+                    if(getPlayers().get(i).getDoubleCounter() == 3){
+                        getPlayers().get(i).getPiece().setJailCounter(3);
+                        getPlayers().get(i).getPiece().setInJail(true);
+                        getPlayers().get(i).resetDoubleCounter();
+                    }
+                    //int totalDice = getPlayers().get(i).rollDice(new Dice());
                     if (getPlayers().get(i).getPiece().isInJail()) {
                         // System.out.println("test");
                         getPlayers().get(i).getPiece().decreaseJailCounter();
