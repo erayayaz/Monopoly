@@ -24,13 +24,19 @@ public class Player {
         properties = new ArrayList<PurchasableSquare>();
     }
 
-    public void increaseMoney(double money) {
+    public void increaseMoney(int money) {
         this.money += money;
     }
 
-    public void decreaseMoney(double money) {
-        this.money -= money;
-
+    public int decreaseMoney(int money) {
+        if(money > getMoney()){
+            money = getMoney();
+            setMoney(0);
+        }
+        else {
+            setMoney(getMoney() - money);
+        }
+        return money;
     }
 
     public int rollDice(Dice die1) {
