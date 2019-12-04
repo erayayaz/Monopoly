@@ -20,8 +20,7 @@ public class WaterWorks extends PurchasableSquare{
                 modifier = 4;
             }
             int money = modifier * dice;
-            player.decreaseMoney(money);
-            this.getPlayer().increaseMoney(money);
+            this.getPlayer().increaseMoney(player.decreaseMoney(money));
 
         }
         if ( player.getMoney() <= 0)

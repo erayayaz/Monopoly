@@ -13,8 +13,7 @@ public class RailRoad extends PurchasableSquare {
     public void rent(Player player, int dice) {
         int number = numberOfRailRoads(this.getPlayer());
         if(this.isOwned()){
-            player.decreaseMoney(25 * Math.pow(2,number));
-            this.getPlayer().increaseMoney(25 * Math.pow(2, number));
+            this.getPlayer().increaseMoney(player.decreaseMoney((int)(25 * Math.pow(2,number))));
         }
         if ( player.getMoney() <= 0)
             player.setBankrupt(true);
