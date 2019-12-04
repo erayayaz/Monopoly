@@ -38,7 +38,4 @@ public class CommunityChestCard extends Square {
         CommunityChest.pickCard(player);
 
     }
-
-
-
 }

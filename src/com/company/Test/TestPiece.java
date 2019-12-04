@@ -1,4 +1,4 @@
-/*
+
 import com.company.Player_die.Piece;
 import com.company.Player_die.Player;
 import com.company.board.Square;
@@ -58,4 +58,4 @@ public class TestPiece {
         piece.setInJail(true);
         assertEquals(true,piece.isInJail());
     }
-}*/
+}
