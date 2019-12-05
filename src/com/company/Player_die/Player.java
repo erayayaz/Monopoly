@@ -45,10 +45,20 @@ public class Player {
     }
 
     public void setPropertiesFree(){
+        ArrayList<PurchasableSquare> remove = new ArrayList<PurchasableSquare>();
         int size = this.getProperties().size();
+        if(size == 0 ){
+            this.setBankrupt(true);
+        }else{
+            this.setBankrupt(false);
+        }
         for (int i = 0; i < size; i++) {
             this.getProperties().get(i).setOwned(false);
+            this.increaseMoney(getProperties().get(i).getPrice() / 2);
+            this.getProperties().get(i).setPlayer(null);
+            remove.add(this.getProperties().get(i));
         }
+        this.getProperties().removeAll(remove);
     }
 
 

@@ -87,9 +87,13 @@ public class Monopoly {
                         }
 
                         if (getPlayers().get(i).isBankrupt()) {
-                            numberOfActivePlayers--;
-                            getPlayers().get(i).setPiece(null);
+
+                            //getPlayers().get(i).setPiece(null);
                             getPlayers().get(i).setPropertiesFree();
+                            if(getPlayers().get(i).isBankrupt()){
+                                getPlayers().get(i).setPiece(null);
+                                numberOfActivePlayers--;
+                            }
                         }
                     }
                     printIteration(getPlayers().get(i), totalDice);
