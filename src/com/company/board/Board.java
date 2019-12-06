@@ -7,15 +7,21 @@ import java.util.ArrayList;
 public class Board {
 
     private final int NUMBER_OF_SQUARES = 40;
+    private int numberOfTaxSquares;
+    private int taxAmount;
+    private int goSquareMoney;
     private ArrayList<Square> squaresOnBoard;
     private ArrayList<Piece> pieces;
 
     public Board(int numberOfTaxSquares, int taxAmount, int goSquareMoney) {
         this.squaresOnBoard = new ArrayList<>();
-        initializeBoard(numberOfTaxSquares,taxAmount,goSquareMoney);
+        setNumberOfTaxSquares(numberOfTaxSquares);
+        setTaxAmount(taxAmount);
+        setGoSquareMoney(goSquareMoney);
+        initializeBoard();
     }
 
-    public void initializeBoard(int numberOfTaxSquare, int taxAmount, int goSquareMoney) {
+    public void initializeBoard() {
 
         String[] namesOfSquares = {"Üsküdar","Zümrütevler","Çamlıca","Fındıklı","Kozyatağı","Beylikdüzü","Göztepe","Fikirtepe",
                                       "Ataşehir","Sarıyer","Fatih", "Mecidiyeköy","Çemenzar","Kuyubaşı","Şişli","Beşiktaş","Fenerbahçe",
@@ -31,7 +37,7 @@ public class Board {
         Square communityChestSquare = new CommunityChestCard("luckSqaure",32);
         getSquaresOnBoard().set(communityChestSquare.getIndex(),communityChestSquare);
 
-        Square goSquare = new GoSquare("goSquare", 0, goSquareMoney);
+        Square goSquare = new GoSquare("goSquare", 0, getGoSquareMoney());
         getSquaresOnBoard().set(goSquare.getIndex(),goSquare);
 
         int randomIndexNumber = 0;
@@ -54,7 +60,7 @@ public class Board {
         Square gotojail =  new ArrestedSquare("Arrest", 29);
         getSquaresOnBoard().set(gotojail.getIndex(),gotojail);
 
-        for (int i = 0; i < numberOfTaxSquare;) {
+        for (int i = 0; i < getNumberOfTaxSquares(); ) {
             randomIndexNumber = (int) ((Math.random() * 38) + 1);
 
             if( getSquaresOnBoard().get(randomIndexNumber) ==  null ){
@@ -79,6 +85,30 @@ public class Board {
 
     public void setSquaresOnBoard(ArrayList<Square> squaresOnBoard) {
         this.squaresOnBoard = squaresOnBoard;
+    }
+
+    public int getNumberOfTaxSquares() {
+        return numberOfTaxSquares;
+    }
+
+    public void setNumberOfTaxSquares(int numberOfTaxSquares) {
+        this.numberOfTaxSquares = numberOfTaxSquares;
+    }
+
+    public int getTaxAmount() {
+        return taxAmount;
+    }
+
+    public void setTaxAmount(int taxAmount) {
+        this.taxAmount = taxAmount;
+    }
+
+    public int getGoSquareMoney() {
+        return goSquareMoney;
+    }
+
+    public void setGoSquareMoney(int goSquareMoney) {
+        this.goSquareMoney = goSquareMoney;
     }
 
     public Square getSquareObject(Board board, int index) {

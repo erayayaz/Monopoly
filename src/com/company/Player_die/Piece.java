@@ -23,7 +23,6 @@ public class Piece {
         if(location >= 40){
             location -= 40;
         }
-
         this.square = board.getSquareObject(board, location);
     }
 

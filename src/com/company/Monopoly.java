@@ -238,7 +238,7 @@ public class Monopoly {
                 System.out.print(name + ", ");
             }
             System.out.println("rolls the same face value");
-            System.out.println("Now, They will rolls the dice again!");
+            System.out.println("Now, They will roll the dice again!");
             order(temp);
         }
         return;
