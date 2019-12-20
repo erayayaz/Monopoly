@@ -75,15 +75,16 @@ public class Monopoly {
                                     || initialSquare instanceof GoSquare) {
                             getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
                         }
+                        else if(initialSquare instanceof  PropertiesSquare){
+                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
+                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
+                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).build(getPlayers().get(i));
+                        }
                         else if(initialSquare instanceof PurchasableSquare){
                             ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
                             ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
                         }else if(initialSquare instanceof LuckCard){
                             getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
-                        }else if(initialSquare instanceof  PropertiesSquare){
-                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
-                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
-                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).build(getPlayers().get(i));
                         }
 
                         if (getPlayers().get(i).isBankrupt()) {
@@ -143,6 +144,9 @@ public class Monopoly {
                 System.out.println(player.getName() + " is now in jail.");
                 System.out.println(player.getName() + " will be free after " + player.getPiece().getJailCounter() + " turn(s)");
             } else {
+                if(player.getPiece().getSquare() instanceof PropertiesSquare){
+                    System.out.println(player.getName() + " has " + ((PropertiesSquare) player.getPiece().getSquare()).getHouseNumber() + " on this square.");
+                }
                 System.out.println(player.getName() + " rools " + moveNumber);
                 System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
                 System.out.println(player.getName() + " has " + player.getMoney());
@@ -151,6 +155,12 @@ public class Monopoly {
                     System.out.println(player.getName() + " has " + player.getProperties().size() + " property(ies). \n{");
                     for (int i = 0; i < size; i++) {
                         System.out.println("\tName: "+ player.getProperties().get(i).getName() + " , Index: " + player.getProperties().get(i).getIndex());
+                        for (PurchasableSquare property : player.getProperties()
+                             ) {
+                            if(property instanceof  PropertiesSquare){
+                                System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
+                            }
+                        }
                     }
                     System.out.println("}");
                 }

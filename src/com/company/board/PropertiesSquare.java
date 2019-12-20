@@ -38,9 +38,10 @@ public class PropertiesSquare extends PurchasableSquare {
     }
 
     public void build(Player player){
+
         if(houseNumber <= 4) {
-            if (this.isOwned() && this.getPlayer() == player) {
-                if (player.getMoney() >= this.costOfBuild && player.rollDice(new Dice()) + player.rollDice(new Dice()) >= 8) {
+            if (this.isOwned() && this.getPlayer() == player && player.getNumberOfColor(this.color)) {
+                if (player.getMoney() >= this.costOfBuild && player.rollDice(new Dice()) + player.rollDice(new Dice()) >= 2) {
                     player.decreaseMoney(this.costOfBuild);
                     this.setHouseNumber(this.getHouseNumber() + 1);
                     this.setCostOfBuild(this.getCostOfBuild() + 10);
