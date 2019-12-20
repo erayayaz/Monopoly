@@ -83,7 +83,7 @@ public class Monopoly {
                         }else if(initialSquare instanceof  PropertiesSquare){
                             ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
                             ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
-
+                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).build(getPlayers().get(i));
                         }
 
                         if (getPlayers().get(i).isBankrupt()) {

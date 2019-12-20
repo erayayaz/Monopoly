@@ -28,6 +28,8 @@ public class Board {
                                       "Koşuyolu","Erenköy","Bağdat Street","Haliç","Eyüp","Maslak","Bebek","Acıbadem","Ünalan","Kuyubaşı","Aslantepe","Ziverbey",
                                     "Küçükçekmece","Göktürk","Sarıgöl", "Sümer", "GOP", "Silivri","Tarlabaşı","Okmeydanı","Taksim","Etiler","Kavacık"};
 
+        String[] colors = {"Grey", "Red", "Blue", "Orange", "Purple", "Yellow", "Green", "Black", "White","Brown"};
+
         for (int i = 0; i < NUMBER_OF_SQUARES; i++) {
             this.getSquaresOnBoard().add(null);
         }
@@ -70,11 +72,18 @@ public class Board {
             }
         }
         int price = 50;
+        int currentColor = 0;
+        int indexColor = 0;
         for (int i = 0; i < NUMBER_OF_SQUARES   ; i++) {
             if ( getSquaresOnBoard().get(i) == null ){
-                Square propertieSquare =  new PropertiesSquare(namesOfSquares[i],i,price,price / 4);
+                if(currentColor == 3){
+                    currentColor = 0;
+                    indexColor++;
+                }
+                Square propertieSquare =  new PropertiesSquare(namesOfSquares[i],i,price,price / 4, colors[indexColor], price / 5);
                 getSquaresOnBoard().set(i,propertieSquare);
                 price += 10;
+                currentColor++;
             }
         }
     }

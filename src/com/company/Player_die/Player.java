@@ -1,8 +1,10 @@
 package com.company.Player_die;
 
+import com.company.board.PropertiesSquare;
 import com.company.board.PurchasableSquare;
 import com.company.board.Square;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class Player {
@@ -59,6 +61,24 @@ public class Player {
             remove.add(this.getProperties().get(i));
         }
         this.getProperties().removeAll(remove);
+    }
+
+    public boolean getNumberOfColor(String color){
+        int count = 0;
+        int size = getProperties().size();
+        for (int i = 0; i < size; i++) {
+            if(getProperties().get(i) instanceof PropertiesSquare){
+                if(((PropertiesSquare) getProperties().get(i)).getColor() == color){
+                    count++;
+                }
+            }
+        }
+        if(count == 3){
+            return true;
+        }
+        else{
+            return false;
+        }
     }
 
 
