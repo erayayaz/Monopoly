@@ -1,5 +1,6 @@
 package com.company.Player_die;
 
+import com.company.board.Building;
 import com.company.board.PropertiesSquare;
 import com.company.board.PurchasableSquare;
 import com.company.board.Square;
@@ -17,6 +18,7 @@ public class Player {
     private int turn;
     private Piece piece;
     private ArrayList<PurchasableSquare> properties;
+    private ArrayList<Building> buildings;
 
     public Player(String name, int money,String pieceName) {
         setPiece(pieceName);
@@ -24,6 +26,7 @@ public class Player {
         this.money = money;
         this.isBankrupt = false;
         properties = new ArrayList<PurchasableSquare>();
+        buildings = new ArrayList<Building>() ;
     }
 
     public void increaseMoney(int money) {
@@ -48,7 +51,9 @@ public class Player {
 
     public void setPropertiesFree(){
         ArrayList<PurchasableSquare> remove = new ArrayList<PurchasableSquare>();
+        ArrayList<Building> removeBuildings = new ArrayList<>();
         int size = this.getProperties().size();
+        int sizeBuildings = this.getBuildings().size();
         if(size == 0 ){
             this.setBankrupt(true);
         }else{
@@ -60,7 +65,14 @@ public class Player {
             this.getProperties().get(i).setPlayer(null);
             remove.add(this.getProperties().get(i));
         }
+        for (int i = 0; i < sizeBuildings; i++) {
+            this.increaseMoney(getBuildings().get(i).getCostOfBuild() / 3);
+            this.getBuildings().get(i).getSquare().setHouseNumber(0);
+            this.getBuildings().get(i).getSquare().setCostOfBuild(this.getBuildings().get(i).getSquare().getRent());
+            removeBuildings.add(this.getBuildings().get(i));
+        }
         this.getProperties().removeAll(remove);
+        this.getBuildings().removeAll(removeBuildings);
     }
 
     public boolean getNumberOfColor(String color){
@@ -146,5 +158,13 @@ public class Player {
 
     public void setProperties(ArrayList<PurchasableSquare> properties) {
         this.properties = properties;
+    }
+
+    public ArrayList<Building> getBuildings() {
+        return buildings;
+    }
+
+    public void setBuildings(ArrayList<Building> buildings) {
+        this.buildings = buildings;
     }
 }
