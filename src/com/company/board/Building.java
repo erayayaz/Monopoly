@@ -1,5 +1,6 @@
 package com.company.board;
 
+
 public class Building {
 
     private int costOfBuild;
