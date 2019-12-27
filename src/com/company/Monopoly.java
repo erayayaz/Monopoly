@@ -162,16 +162,24 @@ public class Monopoly {
                     System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
                     System.out.println(player.getName() + " has " + player.getMoney());
                     int size = player.getProperties().size();
+                    int sizeBuildings = player.getBuildings().size();
                     if(size > 0){
                         System.out.println(player.getName() + " has " + player.getProperties().size() + " property(ies). \n{");
                         for (int i = 0; i < size; i++) {
                             System.out.println("\tName: "+ player.getProperties().get(i).getName() + " , Index: " + player.getProperties().get(i).getIndex());
-                            for (PurchasableSquare property : player.getProperties()
-                                 ) {
-                                if(property instanceof  PropertiesSquare){
-                                    System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
-                                }
-                            }
+//                            for (PurchasableSquare property : player.getProperties()
+//                                 ) {
+//                                if(property instanceof  PropertiesSquare){
+//                                    System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
+//                                }
+//                            }
+                        }
+                        System.out.println("}");
+                    }
+                    if(sizeBuildings > 0){
+                        System.out.println(player.getName() + " has " + sizeBuildings + " building(s). \n{");
+                        for (int i = 0; i < sizeBuildings; i++) {
+                            System.out.println("\t " + player.getName() + " has a building on " + player.getBuildings().get(i).getSquare().getName());
                         }
                         System.out.println("}");
                     }
