@@ -50,29 +50,33 @@ public class Player {
     }
 
     public void setPropertiesFree(){
-        ArrayList<PurchasableSquare> remove = new ArrayList<PurchasableSquare>();
-        ArrayList<Building> removeBuildings = new ArrayList<>();
-        int size = this.getProperties().size();
-        int sizeBuildings = this.getBuildings().size();
-        if(size == 0 ){
-            this.setBankrupt(true);
-        }else{
-            this.setBankrupt(false);
+        try {
+            ArrayList<PurchasableSquare> remove = new ArrayList<PurchasableSquare>();
+            ArrayList<Building> removeBuildings = new ArrayList<>();
+            int size = this.getProperties().size();
+            int sizeBuildings = this.getBuildings().size();
+            if(size == 0 ){
+                this.setBankrupt(true);
+            }else{
+                this.setBankrupt(false);
+            }
+            for (int i = 0; i < size; i++) {
+                this.getProperties().get(i).setOwned(false);
+                this.increaseMoney(getProperties().get(i).getPrice() / 2);
+                this.getProperties().get(i).setPlayer(null);
+                remove.add(this.getProperties().get(i));
+            }
+            for (int i = 0; i < sizeBuildings; i++) {
+                this.increaseMoney(getBuildings().get(i).getCostOfBuild() / 3);
+                this.getBuildings().get(i).getSquare().setHouseNumber(0);
+                this.getBuildings().get(i).getSquare().setCostOfBuild(this.getBuildings().get(i).getSquare().getRent());
+                removeBuildings.add(this.getBuildings().get(i));
+            }
+            this.getProperties().removeAll(remove);
+            this.getBuildings().removeAll(removeBuildings);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        for (int i = 0; i < size; i++) {
-            this.getProperties().get(i).setOwned(false);
-            this.increaseMoney(getProperties().get(i).getPrice() / 2);
-            this.getProperties().get(i).setPlayer(null);
-            remove.add(this.getProperties().get(i));
-        }
-        for (int i = 0; i < sizeBuildings; i++) {
-            this.increaseMoney(getBuildings().get(i).getCostOfBuild() / 3);
-            this.getBuildings().get(i).getSquare().setHouseNumber(0);
-            this.getBuildings().get(i).getSquare().setCostOfBuild(this.getBuildings().get(i).getSquare().getPrice() / 5);
-            removeBuildings.add(this.getBuildings().get(i));
-        }
-        this.getProperties().removeAll(remove);
-        this.getBuildings().removeAll(removeBuildings);
     }
 
     public boolean getNumberOfColor(String color){

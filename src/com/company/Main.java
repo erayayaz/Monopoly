@@ -4,7 +4,11 @@ import java.util.ArrayList;
 public class Main {
 
     public static void main(String[] args) {
-        Monopoly monopoly = new Monopoly();
-        monopoly.play();
+        try {
+            Monopoly monopoly = new Monopoly();
+            monopoly.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

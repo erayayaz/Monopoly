@@ -41,83 +41,93 @@ public class Monopoly {
         int numberOfActivePlayers = getNumberOfPlayers();
         setCycleNumber(1);
 
-        while (!checkBankrupts()) {
-            printCycle();
-            setCycleNumber(getCycleNumber() + 1);
+        try {
 
-            for (int i = 0; i < getNumberOfPlayers(); i++) {
-                if (!getPlayers().get(i).isBankrupt()){
-                    //dice1.setFaceValue();
-                    //dice2.setFaceValue();
-                    int dice1 = getPlayers().get(i).rollDice(getDice()[0]);
-                    int dice2 = getPlayers().get(i).rollDice(getDice()[1]);
-                    int totalDice = dice1 + dice2;
-                    if(dice1 == dice2){
-                        getPlayers().get(i).setDoubleCounter(getPlayers().get(i).getDoubleCounter() + 1);
-                    }
-                    if(getPlayers().get(i).getDoubleCounter() == 3){
-                        getPlayers().get(i).getPiece().setJailCounter(3);
-                        getPlayers().get(i).getPiece().setInJail(true);
-                        getPlayers().get(i).resetDoubleCounter();
-                    }
-                    //int totalDice = getPlayers().get(i).rollDice(new Dice());
-                    if (getPlayers().get(i).getPiece().isInJail()) {
-                        // System.out.println("test");
-                        getPlayers().get(i).getPiece().decreaseJailCounter();
-                        getPlayers().get(i).getPiece().setFree();
-                    }
-                    if (!getPlayers().get(i).getPiece().isInJail()) {
-                        getPlayers().get(i).getPiece().moveTo(totalDice, getBoard());
 
-                        Square initialSquare = getPlayers().get(i).getPiece().getSquare();
-                        if (initialSquare instanceof ArrestedSquare
-                                || initialSquare instanceof  TaxSquare
+            while (!checkBankrupts()) {
+                printCycle();
+                setCycleNumber(getCycleNumber() + 1);
+
+                for (int i = 0; i < getNumberOfPlayers(); i++) {
+                    if (!getPlayers().get(i).isBankrupt()) {
+                        //dice1.setFaceValue();
+                        //dice2.setFaceValue();
+                        int dice1 = getPlayers().get(i).rollDice(getDice()[0]);
+                        int dice2 = getPlayers().get(i).rollDice(getDice()[1]);
+                        int totalDice = dice1 + dice2;
+                        if (dice1 == dice2) {
+                            getPlayers().get(i).setDoubleCounter(getPlayers().get(i).getDoubleCounter() + 1);
+                        }
+                        if (getPlayers().get(i).getDoubleCounter() == 3) {
+                            getPlayers().get(i).getPiece().setJailCounter(3);
+                            getPlayers().get(i).getPiece().setInJail(true);
+                            getPlayers().get(i).resetDoubleCounter();
+                        }
+                        //int totalDice = getPlayers().get(i).rollDice(new Dice());
+                        if (getPlayers().get(i).getPiece().isInJail()) {
+                            // System.out.println("test");
+                            getPlayers().get(i).getPiece().decreaseJailCounter();
+                            getPlayers().get(i).getPiece().setFree();
+                        }
+                        if (!getPlayers().get(i).getPiece().isInJail()) {
+                            getPlayers().get(i).getPiece().moveTo(totalDice, getBoard());
+
+                            Square initialSquare = getPlayers().get(i).getPiece().getSquare();
+                            if (initialSquare instanceof ArrestedSquare
+                                    || initialSquare instanceof TaxSquare
                                     || initialSquare instanceof GoSquare) {
-                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
-                        }
-                        else if(initialSquare instanceof  PropertiesSquare){
-                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
-                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
-                            ((PropertiesSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).build(getPlayers().get(i));
-                        }
-                        else if(initialSquare instanceof PurchasableSquare){
-                            ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
-                            ((PurchasableSquare)getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
-                        }else if(initialSquare instanceof LuckCard){
-                            getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
-                        }
+                                getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
+                            } else if (initialSquare instanceof PropertiesSquare) {
+                                ((PropertiesSquare) getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
+                                ((PropertiesSquare) getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
+                                ((PropertiesSquare) getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).build(getPlayers().get(i));
+                            } else if (initialSquare instanceof PurchasableSquare) {
+                                ((PurchasableSquare) getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).buy(getPlayers().get(i));
+                                ((PurchasableSquare) getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation())).rent(getPlayers().get(i), totalDice);
+                            } else if (initialSquare instanceof LuckCard) {
+                                getBoard().getSquaresOnBoard().get(getPlayers().get(i).getPiece().getLocation()).action(getPlayers().get(i));
+                            }
 
-                        if (getPlayers().get(i).isBankrupt()) {
+                            if (getPlayers().get(i).isBankrupt()) {
 
-                            //getPlayers().get(i).setPiece(null);
-                            getPlayers().get(i).setPropertiesFree();
-                            if(getPlayers().get(i).isBankrupt()){
-                                getPlayers().get(i).setPiece(null);
-                                numberOfActivePlayers--;
+                                //getPlayers().get(i).setPiece(null);
+                                getPlayers().get(i).setPropertiesFree();
+                                if (getPlayers().get(i).isBankrupt()) {
+                                    getPlayers().get(i).setPiece(null);
+                                    numberOfActivePlayers--;
+                                }
                             }
                         }
+                        printIteration(getPlayers().get(i), totalDice);
                     }
-                    printIteration(getPlayers().get(i), totalDice);
-               }
+                }
+                sortPlayers();
+                if (numberOfActivePlayers == 1) {
+                    System.out.println("Game Over!");
+                    printWinner();
+                    System.exit(1);
+                }
             }
-            sortPlayers();
-            if (numberOfActivePlayers == 1) {
-                System.out.println("Game Over!");
-                printWinner();
-                System.exit(1);
-            }
+
+        }catch (Exception e ){
+            System.out.println(" Exception Monopoly" );
         }
+
     }
 
     public void sortPlayers(){
-        Player[] sortPlayers = new Player[getNumberOfPlayers()];
-        for (int i = 0 ; i < getNumberOfPlayers() ; i++){
-            sortPlayers[i] = getPlayers().get(i);
-        }
-        Arrays.sort(sortPlayers, Comparator.comparing(Player::getMoney));
-        System.out.println("\nWealth ranking: ");
-        for (int i = (getNumberOfPlayers() - 1); i >= 0; i--){
-            System.out.println(sortPlayers[i].getName() + " " + sortPlayers[i].getMoney());
+        try {
+            Player[] sortPlayers = new Player[getNumberOfPlayers()];
+            for (int i = 0 ; i < getNumberOfPlayers() ; i++){
+                sortPlayers[i] = getPlayers().get(i);
+            }
+            Arrays.sort(sortPlayers, Comparator.comparing(Player::getMoney));
+            System.out.println("\nWealth ranking: ");
+            for (int i = (getNumberOfPlayers() - 1); i >= 0; i--){
+                System.out.println(sortPlayers[i].getName() + " " + sortPlayers[i].getMoney());
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -133,52 +143,47 @@ public class Monopoly {
     }
 
     public void printIteration(Player player, int moveNumber) {
-        if (!player.isBankrupt()) {
-            if (player.getPiece().getJailCounter() == 3){
-                System.out.println(player.getName() + " rools " + moveNumber);
-                System.out.println(player.getName() + " moved to 29 with " + player.getPiece().getName());
-                System.out.println(player.getName() + " arrested");
-                System.out.println(player.getName() + " was exiled to the Jail Square(19)");
-            }
-            if ((player.getPiece().isInJail() == true)) {
-                System.out.println(player.getName() + " is now in jail.");
-                System.out.println(player.getName() + " will be free after " + player.getPiece().getJailCounter() + " turn(s)");
-            } else {
-                if(player.getPiece().getSquare() instanceof PropertiesSquare){
-                    System.out.println(player.getName() + " has " + ((PropertiesSquare) player.getPiece().getSquare()).getHouseNumber() + " on this square.");
+        try {
+            if (!player.isBankrupt()) {
+                if (player.getPiece().getJailCounter() == 3){
+                    System.out.println(player.getName() + " rools " + moveNumber);
+                    System.out.println(player.getName() + " moved to 29 with " + player.getPiece().getName());
+                    System.out.println(player.getName() + " arrested");
+                    System.out.println(player.getName() + " was exiled to the Jail Square(19)");
                 }
-                System.out.println(player.getName() + " rools " + moveNumber);
-                System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
-                System.out.println(player.getName() + " has " + player.getMoney());
-                int size = player.getProperties().size();
-                int size1 = player.getBuildings().size();
-                if(size > 0){
-                    System.out.println(player.getName() + " has " + player.getProperties().size() + " property(ies). \n{");
-                    for (int i = 0; i < size; i++) {
-                        System.out.println("\tName: "+ player.getProperties().get(i).getName() + " , Index: " + player.getProperties().get(i).getIndex());
-                        for (PurchasableSquare property : player.getProperties()
-                             ) {
-                            if(property instanceof  PropertiesSquare){
-                                //System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
-
+                if ((player.getPiece().isInJail() == true)) {
+                    System.out.println(player.getName() + " is now in jail.");
+                    System.out.println(player.getName() + " will be free after " + player.getPiece().getJailCounter() + " turn(s)");
+                } else {
+                    if(player.getPiece().getSquare() instanceof PropertiesSquare){
+                        System.out.println(player.getName() + " has " + ((PropertiesSquare) player.getPiece().getSquare()).getHouseNumber() + " on this square.");
+                    }
+                    System.out.println(player.getName() + " rools " + moveNumber);
+                    System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
+                    System.out.println(player.getName() + " has " + player.getMoney());
+                    int size = player.getProperties().size();
+                    if(size > 0){
+                        System.out.println(player.getName() + " has " + player.getProperties().size() + " property(ies). \n{");
+                        for (int i = 0; i < size; i++) {
+                            System.out.println("\tName: "+ player.getProperties().get(i).getName() + " , Index: " + player.getProperties().get(i).getIndex());
+                            for (PurchasableSquare property : player.getProperties()
+                                 ) {
+                                if(property instanceof  PropertiesSquare){
+                                    System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
+                                }
                             }
                         }
+                        System.out.println("}");
                     }
-                    System.out.println("}");
-                }
-                if(size1 > 0){
-                    System.out.println(player.getName() + " has " + size1 + " buildings. \n {");
-                    for (int i = 0; i < size1; i++) {
-                        System.out.println("\t" + player.getName() +  " has a building on " + player.getBuildings().get(i).getSquare().getName());
-                    }
-                    System.out.println("}");
                 }
             }
+            else{
+                System.out.println(player.getName() + " went bankrupt.");
+            }
+            System.out.println("---------------------------");
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else{
-            System.out.println(player.getName() + " went bankrupt.");
-        }
-        System.out.println("---------------------------");
 
     }
 
@@ -229,38 +234,42 @@ public class Monopoly {
         }
     }
     public void order(ArrayList<String> names){
-        ArrayList<String> temp = new ArrayList<>();
-        int max = -1 , faceValue = -1 , index = 0;
-        for (int i = 0; i < names.size() ; i++){
-            faceValue = dice[0].getFaceValue() + dice[1].getFaceValue();
-            System.out.println(names.get(i) + " rolls " + faceValue);
-            if (faceValue > max){
-                max = faceValue;
-                temp.clear();
-                temp.add(names.get(i));
-                index = i;
+        try {
+            ArrayList<String> temp = new ArrayList<>();
+            int max = -1 , faceValue = -1 , index = 0;
+            for (int i = 0; i < names.size() ; i++){
+                faceValue = dice[0].getFaceValue() + dice[1].getFaceValue();
+                System.out.println(names.get(i) + " rolls " + faceValue);
+                if (faceValue > max){
+                    max = faceValue;
+                    temp.clear();
+                    temp.add(names.get(i));
+                    index = i;
+                }
+                else if(faceValue == max){
+                    temp.add(names.get(i));
+                }
             }
-            else if(faceValue == max){
-                temp.add(names.get(i));
+            if (temp.size() == 1){
+                System.out.println(temp.get(0) + " rolls the max face value!");
+                System.out.println("-----------------------------------");
+                String pieceName = assignPiece();
+                getPlayers().add(new Player(names.get(index),getStartMoney() , pieceName));
+                getNames().remove(names.get(index));
+                return;
             }
-        }
-        if (temp.size() == 1){
-            System.out.println(temp.get(0) + " rolls the max face value!");
-            System.out.println("-----------------------------------");
-            String pieceName = assignPiece();
-            getPlayers().add(new Player(names.get(index),getStartMoney() , pieceName));
-            getNames().remove(names.get(index));
+            else if (temp.size() > 1){
+                for (String name : temp){
+                    System.out.print(name + ", ");
+                }
+                System.out.println("rolls the same face value");
+                System.out.println("Now, They will roll the dice again!");
+                order(temp);
+            }
             return;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        else if (temp.size() > 1){
-            for (String name : temp){
-                System.out.print(name + ", ");
-            }
-            System.out.println("rolls the same face value");
-            System.out.println("Now, They will roll the dice again!");
-            order(temp);
-        }
-        return;
     }
 
 
