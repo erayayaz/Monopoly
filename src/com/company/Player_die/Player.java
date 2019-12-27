@@ -68,7 +68,7 @@ public class Player {
         for (int i = 0; i < sizeBuildings; i++) {
             this.increaseMoney(getBuildings().get(i).getCostOfBuild() / 3);
             this.getBuildings().get(i).getSquare().setHouseNumber(0);
-            this.getBuildings().get(i).getSquare().setCostOfBuild(this.getBuildings().get(i).getSquare().getRent());
+            this.getBuildings().get(i).getSquare().setCostOfBuild(this.getBuildings().get(i).getSquare().getPrice() / 5);
             removeBuildings.add(this.getBuildings().get(i));
         }
         this.getProperties().removeAll(remove);

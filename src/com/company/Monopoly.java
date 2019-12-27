@@ -151,6 +151,7 @@ public class Monopoly {
                 System.out.println(player.getName() + " moved to " + player.getPiece().getLocation() + " with " + player.getPiece().getName());
                 System.out.println(player.getName() + " has " + player.getMoney());
                 int size = player.getProperties().size();
+                int size1 = player.getBuildings().size();
                 if(size > 0){
                     System.out.println(player.getName() + " has " + player.getProperties().size() + " property(ies). \n{");
                     for (int i = 0; i < size; i++) {
@@ -158,9 +159,17 @@ public class Monopoly {
                         for (PurchasableSquare property : player.getProperties()
                              ) {
                             if(property instanceof  PropertiesSquare){
-                                System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
+                                //System.out.println("Color : "  + ((PropertiesSquare) property).getColor());
+
                             }
                         }
+                    }
+                    System.out.println("}");
+                }
+                if(size1 > 0){
+                    System.out.println(player.getName() + " has " + size1 + " buildings. \n {");
+                    for (int i = 0; i < size1; i++) {
+                        System.out.println("\t" + player.getName() +  " has a building on " + player.getBuildings().get(i).getSquare().getName());
                     }
                     System.out.println("}");
                 }
